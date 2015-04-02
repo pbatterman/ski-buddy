@@ -9,6 +9,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import org.bitpipeline.lib.owm.OwmClient;
+import org.bitpipeline.lib.owm.WeatherData;
+import org.bitpipeline.lib.owm.WeatherStatusResponse;
+import org.bitpipeline.lib.owm.WeatherData.WeatherCondition;
+import org.json.JSONException;
+
+import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
@@ -34,6 +41,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         System.out.println(parent.getItemAtPosition(pos));
         mountainName = (String) parent.getItemAtPosition(pos);
+        new RetrieveWeatherData().execute("Rutland");
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
