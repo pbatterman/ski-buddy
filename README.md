@@ -1,2 +1,0 @@
-# ski-buddy
-Ski Buddy
