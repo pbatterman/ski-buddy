@@ -17,34 +17,49 @@
     -->
 <ImageView
     android:layout_width="fill_parent"
-    android:layout_height="300dp"
+    android:layout_height="250dp"
     android:background="#FFFFFF"
-    android:id="@+id/mountain_image"/>
+    android:id="@+id/mountain_image"
+    android:layout_below="@+id/mountains_spinner"/>
 
 
     <Spinner
         android:id="@+id/mountains_spinner"
-        android:layout_below="@+id/mountain_image"
-        android:layout_marginTop="10dp"
-        android:background="#CFF4FF"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+
     />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:text="Mountain Conditions"
+        android:layout_height="70dp"
+        android:id="@+id/mountain_conditions"
+        android:layout_below="@+id/mountain_image"
+
+        android:layout_marginTop="10dp"
+        android:background="#555AFF"
+        android:textColor="#FFFFFF"
+        android:layout_weight="1"
+        />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mountains_spinner"
+        android:layout_height="70dp"
+        android:layout_below="@+id/mountain_conditions"
         android:orientation="horizontal"
         android:paddingTop="10dp"
+
         android:gravity="center_horizontal"
         android:weightSum="2">
 
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:text="@string/button_text"
+        android:text="Lift Times"
+        android:layout_height="fill_parent"
         android:id="@+id/waitTimeButton"
         android:onClick="showLiftTimes"
         android:layout_marginRight="10dp"
@@ -54,8 +69,8 @@
     />
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:text="Show Slopes"
+        android:layout_height="fill_parent"
+        android:text="Trail Conditions"
         android:id="@+id/slopeButton"
         android:onClick="showSlopes"
         android:background="#555AFF"
