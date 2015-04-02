@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SkiBuddy</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="mountains_array">
+        <item>Killington</item>
+        <item>Pico</item>
+        <item>Jay Peak</item>
+        <item>Stratton</item>
+        <item>Mount Tremblant</item>
+        <item>Okemo</item>
+        <item>Magic</item>
+    </string-array>
+
+    <string name="button_text">View Lift Times</string>
+    <string name="title_activity_wait_time">waitTimeActivity</string>
+    <string name="title_activity_slope">SlopeActivity</string>
+    <string name="title_activity_slope_data">SlopeData</string>
+
+</resources>
