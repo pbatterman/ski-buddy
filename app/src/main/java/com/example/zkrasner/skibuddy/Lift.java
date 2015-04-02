@@ -8,10 +8,18 @@ public class Lift {
     private double waitTime;
     private double duration;
     private int capacity;
+    private WeightedTimeAverage timeAverage;
+
+    public Lift(){ timeAverage = new WeightedTimeAverage();}
+
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+    public void injectHotStickyWaitTime() { timeAverage.shoveThatDirtyMeasurementInMyArrayList(
+            (int) (Math.random() * 15)
+    );}
 
     public void setName(String name) {
         this.name = name;
@@ -31,7 +39,7 @@ public class Lift {
     }
 
     public double getWaitTime() {
-        return waitTime;
+        return timeAverage.returnMovingAverageToMyWaitingBrain();
     }
 
     public double getDuration() {

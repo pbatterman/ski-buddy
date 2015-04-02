@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class waitTimeActivity extends ActionBarActivity {
     ListView listView;
+    ArrayList<Trail> t;
+    ArrayList<Lift> l;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,13 +26,13 @@ public class waitTimeActivity extends ActionBarActivity {
         TextView tv = (TextView) findViewById(R.id.mountainName);
         tv.setText(mountainName);
 
-        ArrayList<Trail> t = new ArrayList<Trail>();
+        t = new ArrayList<Trail>();
         Trail a = new Trail("icy", "3", "blue square");
         Trail b = new Trail("powdah", "5", "black diamond");
         t.add(a);
         t.add(b);
 
-        ArrayList<Lift> l = new ArrayList<Lift>();
+        l = new ArrayList<Lift>();
         Lift l1 = new Lift();
         l1.setCapacity(3);
         l1.setDuration(10.00);
@@ -46,6 +48,40 @@ public class waitTimeActivity extends ActionBarActivity {
         l.add(l2);
 
 
+        Mountain mountain = new Mountain("Killington");
+        mountain.addTrails(t);
+        mountain.addLifts(l);
+
+        // get lifts and wait times, put into strings to display in list
+        String[] times = new String[mountain.getLifts().size()];
+        for (int i = 0; i < mountain.getLifts().size(); i++) {
+            Lift fick = mountain.getLifts().get(i);
+            String waitTime = fick.getName() + ": " + fick.getWaitTime();
+            times[i] = waitTime;
+        }
+
+        listView = (ListView) findViewById(R.id.list);
+
+        String[] values = new String[] { "Android List View",
+                "Adapter implementation",
+                "Simple List View In Android",
+                "Create List View Android",
+                "Android Example",
+                "List View Source Code",
+                "List View Array Adapter",
+                "Android Example List View"
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, times);
+
+
+        // Assign adapter to ListView
+        listView.setAdapter(adapter);
+    }
+
+
+    public void reValidate(){
         Mountain mountain = new Mountain("Killington");
         mountain.addTrails(t);
         mountain.addLifts(l);
@@ -99,6 +135,16 @@ public class waitTimeActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void onTestButtonSelected(View view){
+        for(Lift a : l){
+            a.injectHotStickyWaitTime();
+        }
+
+        reValidate();
+
     }
 
     public void back(View view) {

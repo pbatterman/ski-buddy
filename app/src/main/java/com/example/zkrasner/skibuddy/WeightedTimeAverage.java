@@ -24,6 +24,9 @@ public class WeightedTimeAverage {
     }
 
     public double returnMovingAverageToMyWaitingBrain(){
+        if(measurements.size() == 0){
+            return 0.0;
+        }
         int count = 0;
         long total = 0;
         // need error handling here
