@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 
@@ -17,8 +18,8 @@ public class MountainConditionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mountain_condition);
         TextView weatherText = (TextView) findViewById(R.id.weather);
-        AsyncTask<String, Void, String> task = new RetrieveWeatherData().execute("Rutland");
-        String currentWeather = null;
+        AsyncTask<String, Void, ArrayList<String>> task = new RetrieveWeatherData().execute("Rutland");
+        ArrayList<String> currentWeather = null;
         try {
             currentWeather = task.get();
         } catch (InterruptedException e) {
@@ -26,7 +27,7 @@ public class MountainConditionActivity extends ActionBarActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        weatherText.setText(currentWeather);
+        weatherText.setText(currentWeather.get(0) + "\n" + currentWeather.get(1) + "\u00b0F");
     }
 
 
