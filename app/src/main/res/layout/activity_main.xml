@@ -38,7 +38,7 @@
         android:layout_height="70dp"
         android:id="@+id/mountain_conditions"
         android:layout_below="@+id/mountain_image"
-
+        android:onClick="showMountainConditions"
         android:layout_marginTop="10dp"
         android:background="#555AFF"
         android:textColor="#FFFFFF"
@@ -81,10 +81,5 @@
 
 
     </LinearLayout>
-
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24pt"
-        android:id="@+id/weather"/>
 
 </RelativeLayout>
