@@ -19,26 +19,38 @@
             android:text="Back"
             android:onClick="back"/>
 
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/liftSpinner"
+            android:focusableInTouchMode="false" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/numberTextBox" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="INCR"
+            android:text="Submit"
             android:id="@+id/button"
-            android:layout_gravity="right"
-            android:elegantTextHeight="false"
+            android:layout_gravity="center_horizontal"
             android:onClick="onTestButtonSelected" />
+
+        <ListView
+        android:id="@+id/list"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </ListView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:id="@+id/mountainName"/>
 
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </ListView>
 
     </LinearLayout>
 

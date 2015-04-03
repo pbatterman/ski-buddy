@@ -17,8 +17,8 @@ public class Lift {
         this.capacity = capacity;
     }
 
-    public void injectHotStickyWaitTime() { timeAverage.shoveThatDirtyMeasurementInMyArrayList(
-            (int) (Math.random() * 15)
+    public void injectHotStickyWaitTime(int a) { timeAverage.shoveThatDirtyMeasurementInMyArrayList(
+            a
     );}
 
     public void setName(String name) {

@@ -7,7 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,6 +25,18 @@ public class waitTimeActivity extends ActionBarActivity {
         setContentView(R.layout.activity_wait_time);
         String mountainName = getIntent().getExtras().getString("mountain");
 
+
+        Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.lift_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter2);
+
+
+
         TextView tv = (TextView) findViewById(R.id.mountainName);
         tv.setText(mountainName);
 
@@ -37,13 +51,13 @@ public class waitTimeActivity extends ActionBarActivity {
         l1.setCapacity(3);
         l1.setDuration(10.00);
         l1.setWaitTime(12.00);
-        l1.setName("lift 1");
+        l1.setName("Fast Lift");
 
         Lift l2 = new Lift();
         l2.setCapacity(3);
         l2.setDuration(4.00);
         l2.setWaitTime(5.00);
-        l2.setName("lift 2");
+        l2.setName("Slow Bunny Hill");
         l.add(l1);
         l.add(l2);
 
@@ -138,10 +152,31 @@ public class waitTimeActivity extends ActionBarActivity {
     }
 
 
+
     public void onTestButtonSelected(View view){
-        for(Lift a : l){
-            a.injectHotStickyWaitTime();
+        EditText e = (EditText) findViewById(R.id.numberTextBox);
+        String intermediate = e.getText().toString();
+        int to_add;
+        if(intermediate.length() == 0){
+            to_add = 0;
+        }else {
+            to_add = Integer.parseInt(intermediate);
         }
+
+
+
+        Spinner mySpinner=(Spinner) findViewById(R.id.liftSpinner);
+        String text = mySpinner.getSelectedItem().toString();
+        if(text.equals("Fast Lift")){
+            Lift tmp = l.get(0);
+            tmp.injectHotStickyWaitTime(to_add);
+            reValidate();
+            return;
+        }
+
+        Lift tmp = l.get(1);
+        tmp.injectHotStickyWaitTime(to_add);
+
 
         reValidate();
 

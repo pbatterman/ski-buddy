@@ -15,6 +15,11 @@
         <item>Magic</item>
     </string-array>
 
+    <string-array name="lift_array">
+        <item>Fast Lift</item>
+        <item>Slow Bunny Hill</item>
+    </string-array>
+
     <string name="button_text">View Lift Times</string>
     <string name="title_activity_wait_time">waitTimeActivity</string>
     <string name="title_activity_slope">SlopeActivity</string>

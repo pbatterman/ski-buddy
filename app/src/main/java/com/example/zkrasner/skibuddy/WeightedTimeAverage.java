@@ -32,15 +32,12 @@ public class WeightedTimeAverage {
         // need error handling here
         for(int i = 0; i < measurements.size(); i++){
             int curr_meas = measurements.get(i);
-            long timestamp = times.get(i);
-            if(System.currentTimeMillis() - timestamp  < 1.8E6){
-                count++;
-                total += curr_meas;
-            }
+            count++;
+            total += curr_meas;
 
         }
 
-        return (double) count / total;
+        return (double) total / count;
     }
 
 }
