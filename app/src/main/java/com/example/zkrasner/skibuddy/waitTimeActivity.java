@@ -104,7 +104,7 @@ public class waitTimeActivity extends ActionBarActivity {
         String[] times = new String[mountain.getLifts().size()];
         for (int i = 0; i < mountain.getLifts().size(); i++) {
             Lift fick = mountain.getLifts().get(i);
-            String waitTime = fick.getName() + ": " + fick.getWaitTime();
+            String waitTime = fick.getName() + ": " + fick.getWaitTime() + " mins";
             times[i] = waitTime;
         }
 
