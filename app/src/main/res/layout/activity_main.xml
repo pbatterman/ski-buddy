@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ACE6FF"
+    android:background="#5D697A"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
@@ -39,6 +39,8 @@
         android:id="@+id/mountain_conditions"
         android:layout_below="@+id/mountain_image"
         android:onClick="showMountainConditions"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="20dp"
         android:layout_marginTop="10dp"
         android:background="#555AFF"
         android:textColor="#FFFFFF"
@@ -65,6 +67,8 @@
         android:layout_marginRight="10dp"
         android:background="#555AFF"
         android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="15dp"
         android:layout_weight="1"
     />
     <Button
@@ -75,6 +79,8 @@
         android:onClick="showSlopes"
         android:background="#555AFF"
         android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="15dp"
         android:layout_weight="1"
         />
 
