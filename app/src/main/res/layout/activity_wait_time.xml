@@ -9,26 +9,48 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:id="@+id/List">
 
         <Button
-            android:layout_width="500px"
+            android:layout_width="132dp"
             android:layout_height="200px"
             android:id="@+id/backButton"
             android:text="Back"
             android:onClick="back"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/liftSpinner"
+            android:focusableInTouchMode="false" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/numberTextBox" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onTestButtonSelected" />
+
+        <ListView
+        android:id="@+id/list"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </ListView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100px"
             android:id="@+id/mountainName"/>
 
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </ListView>
 
     </LinearLayout>
 
