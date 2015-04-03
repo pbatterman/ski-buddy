@@ -78,6 +78,7 @@
         android:layout_weight="1"
         />
 
+<<<<<<< HEAD
 
     </LinearLayout>
 
@@ -86,4 +87,6 @@
         android:textSize="24pt"
         android:id="@+id/weather"/>
 
+=======
+>>>>>>> scott's-branch
 </RelativeLayout>

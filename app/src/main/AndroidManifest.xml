@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.zkrasner.skibuddy" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -29,6 +29,10 @@
         <activity
             android:name=".SlopeData"
             android:label="@string/title_activity_slope_data" >
+        </activity>
+        <activity
+            android:name=".MountainConditionActivity"
+            android:label="@string/title_activity_mountain_condition" >
         </activity>
     </application>
 

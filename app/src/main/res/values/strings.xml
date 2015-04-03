@@ -19,5 +19,6 @@
     <string name="title_activity_wait_time">waitTimeActivity</string>
     <string name="title_activity_slope">SlopeActivity</string>
     <string name="title_activity_slope_data">SlopeData</string>
+    <string name="title_activity_mountain_condition">MountainConditionActivity</string>
 
 </resources>

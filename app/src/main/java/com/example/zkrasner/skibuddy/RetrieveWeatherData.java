@@ -33,16 +33,6 @@ public class RetrieveWeatherData extends AsyncTask<String, Void, String> {
         if (currentWeather.hasWeatherStatus()) {
             System.out.println(currentWeather.getWeatherStatus().get(0).getWeatherConditions().get(0).getDescription());
             ret = currentWeather.getWeatherStatus().get(0).getWeatherConditions().get(0).getDescription();
-            WeatherData weather = currentWeather.getWeatherStatus().get(0);
-            if (weather.getPrecipitation() == Integer.MIN_VALUE) {
-                WeatherData.WeatherCondition weatherCondition = weather.getWeatherConditions().get(0);
-                String description = weatherCondition.getDescription();
-                if (description.contains("rain") || description.contains("shower"))
-                    System.out.println("No rain measures in " + city[0] + "  but reports of " + description);
-                else
-                    System.out.println("No rain measures in " + city[0] + ": " + description);
-            } else
-                System.out.println("It's raining in " + city[0] + ": " + weather.getPrecipitation() + " mm/h");
         }
         return ret;
     }

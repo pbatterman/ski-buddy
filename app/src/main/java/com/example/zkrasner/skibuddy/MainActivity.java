@@ -25,8 +25,6 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
     String mountainName;
 
-    static String currentWeather;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,21 +46,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         System.out.println(parent.getItemAtPosition(pos));
         mountainName = (String) parent.getItemAtPosition(pos);
-        TextView weatherText = (TextView) findViewById(R.id.weather);
-            AsyncTask<String, Void, String> task = new RetrieveWeatherData().execute("Rutland");
-        String currentWeather = null;
-        try {
-            currentWeather = task.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        weatherText.setText(currentWeather);
-    }
-
-    public static void setCurrentWeather(String currentWeather) {
-        currentWeather = currentWeather;
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
