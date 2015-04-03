@@ -39,7 +39,7 @@ public class RetrieveWeatherData extends AsyncTask<String, Void, ArrayList<Strin
             temp = currentWeather.getWeatherStatus().get(0).getTemp();
             temp = (((temp - 273) * 9.0f) / 5.0f) + 32.0f;
             String tempString = temp.toString();
-            tempString = tempString.substring(0, 6);
+            tempString = tempString.substring(0, 4);
             list.add(cond);
             list.add(tempString);
 

@@ -17,7 +17,6 @@ public class MountainConditionActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mountain_condition);
-        TextView weatherText = (TextView) findViewById(R.id.weather);
         AsyncTask<String, Void, ArrayList<String>> task = new RetrieveWeatherData().execute("Rutland");
         ArrayList<String> currentWeather = null;
         try {
@@ -27,7 +26,10 @@ public class MountainConditionActivity extends ActionBarActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        weatherText.setText(currentWeather.get(0) + "\n" + currentWeather.get(1) + "\u00b0F");
+        TextView weatherText = (TextView) findViewById(R.id.weather);
+        weatherText.setText(currentWeather.get(0));
+        TextView tempText = (TextView) findViewById(R.id.temperature_number);
+        tempText.setText(currentWeather.get(1));
     }
 
 
