@@ -7,12 +7,27 @@
     android:background="#555AFF"
     tools:context="com.example.zkrasner.skibuddy.MountainConditionActivity">
 
- 
+    <TextView android:text="Conditions for:" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-light"
+        android:id="@+id/conditions_for"/>
+
+    <TextView android:text="Killington" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14pt"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-medium"
+        android:layout_below="@+id/conditions_for"
+
+        android:id="@+id/mountain_name"/>
 
     <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18pt"
-        android:fontFamily="sans-serif-thin"
+        android:layout_below="@+id/mountain_name"
+        android:textSize="16pt"
+        android:fontFamily="sans-serif-light"
         android:textColor="#FFFFFF"
         android:id="@+id/weather"/>
 
