@@ -38,10 +38,4 @@
         android:onClick="showSlopes"
         />
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/slopeButton"
-        android:textSize="24pt"
-        android:id="@+id/weather"/>
-
 </RelativeLayout>
