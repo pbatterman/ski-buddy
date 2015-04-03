@@ -1,6 +1,7 @@
 package com.example.zkrasner.skibuddy;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+
 import org.bitpipeline.lib.owm.OwmClient;
 import org.bitpipeline.lib.owm.WeatherData;
 import org.bitpipeline.lib.owm.WeatherStatusResponse;
@@ -16,10 +19,14 @@ import org.bitpipeline.lib.owm.WeatherData.WeatherCondition;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
     String mountainName;
+
+    static String currentWeather;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +48,21 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         System.out.println(parent.getItemAtPosition(pos));
         mountainName = (String) parent.getItemAtPosition(pos);
-        new RetrieveWeatherData().execute("Rutland");
+        TextView weatherText = (TextView) findViewById(R.id.weather);
+            AsyncTask<String, Void, String> task = new RetrieveWeatherData().execute("Rutland");
+        String currentWeather = null;
+        try {
+            currentWeather = task.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        weatherText.setText(currentWeather);
+    }
+
+    public static void setCurrentWeather(String currentWeather) {
+        currentWeather = currentWeather;
     }
 
     public void onNothingSelected(AdapterView<?> parent) {

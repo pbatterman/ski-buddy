@@ -12,14 +12,15 @@ import java.io.IOException;
 /**
  * Created by sfreeman2494 on 4/2/15.
  */
-public class RetrieveWeatherData extends AsyncTask<String, Void, Void> {
+public class RetrieveWeatherData extends AsyncTask<String, Void, String> {
 
     private Exception exception;
 
     @Override
-    protected Void doInBackground(String... city) {
+    protected String doInBackground(String... city) {
         OwmClient owm = new OwmClient();
         WeatherStatusResponse currentWeather = null;
+        String ret = null;
         try {
             currentWeather = owm.currentWeatherAtCity(city[0]);
             System.out.println(currentWeather.getWeatherStatus().get(0).getCoord().getLatitude());
@@ -31,6 +32,7 @@ public class RetrieveWeatherData extends AsyncTask<String, Void, Void> {
         }
         if (currentWeather.hasWeatherStatus()) {
             System.out.println(currentWeather.getWeatherStatus().get(0).getWeatherConditions().get(0).getDescription());
+            ret = currentWeather.getWeatherStatus().get(0).getWeatherConditions().get(0).getDescription();
             WeatherData weather = currentWeather.getWeatherStatus().get(0);
             if (weather.getPrecipitation() == Integer.MIN_VALUE) {
                 WeatherData.WeatherCondition weatherCondition = weather.getWeatherConditions().get(0);
@@ -42,6 +44,6 @@ public class RetrieveWeatherData extends AsyncTask<String, Void, Void> {
             } else
                 System.out.println("It's raining in " + city[0] + ": " + weather.getPrecipitation() + " mm/h");
         }
-        return null;
+        return ret;
     }
 }
