@@ -25,7 +25,13 @@ public class RetrieveWeatherData extends AsyncTask<String, Void, ArrayList<Strin
         String cond = null;
         Float temp;
         try {
-            currentWeather = owm.currentWeatherAtCity(city[0]);
+            if (city[0].equals("Killington")) {
+                currentWeather = owm.currentWeatherAtCity("Rutland");
+            } else if (city[0].equals("Pico")) {
+                currentWeather = owm.currentWeatherAtCity("Rutland");
+            } else {
+                currentWeather = owm.currentWeatherAtCity("Boston");
+            }
             System.out.println(currentWeather.getWeatherStatus().get(0).getCoord().getLatitude());
             System.out.println(currentWeather.getWeatherStatus().get(0).getCoord().getLongitude());
         } catch (IOException e) {

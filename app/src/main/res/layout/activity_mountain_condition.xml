@@ -15,7 +15,7 @@
         android:fontFamily="sans-serif-light"
         android:id="@+id/conditions_for"/>
 
-    <TextView android:text="Killington" android:layout_width="wrap_content"
+    <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14pt"
         android:textColor="#FFFFFF"
