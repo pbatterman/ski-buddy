@@ -78,14 +78,12 @@
         android:layout_weight="1"
         />
 
-<<<<<<< HEAD
+
     </LinearLayout>
-=======
+
     <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/slopeButton"
         android:textSize="24pt"
         android:id="@+id/weather"/>
->>>>>>> scott's-branch
 
 </RelativeLayout>
