@@ -26,12 +26,16 @@ public class SlopeActivity extends ActionBarActivity {
         String mountainName = getIntent().getExtras().getString("mountain");
         trailNames = new ArrayList<String>();
        t = new ArrayList<Trail>();
-        Trail a = new Trail("icy", "3", "blue square");
+        Trail a = new Trail("Icy", "3", "blue square");
         a.setName("Lowell Thomas");
-        Trail b = new Trail("powdah", "5", "black diamond");
-        b.setName("Glades brah");
+        Trail b = new Trail("Powder", "5", "black diamond");
+        b.setName("Glades");
+        Trail d = new Trail("the worst", "5", "black diamond");
+        b.setName("Cliff Run");
+
         t.add(a);
         t.add(b);
+        t.add(d);
 
         if(!AwfulDataStoreClass.added_Once) {
             AwfulDataStoreClass.insertTrail("Lowell Thomas");
@@ -44,6 +48,7 @@ public class SlopeActivity extends ActionBarActivity {
 
         trailNames.add("Lowell Thomas");
         trailNames.add("Glades");
+        trailNames.add("Cliff Run");
 
         ArrayList<Lift> l = new ArrayList<Lift>();
         Lift l1 = new Lift();
@@ -59,6 +64,15 @@ public class SlopeActivity extends ActionBarActivity {
         l2.setName("lift 2");
         l.add(l1);
         l.add(l2);
+
+        Lift l3 = new Lift();
+        l3.setCapacity(3);
+        l3.setDuration(4.00);
+        l3.setWaitTime(5.00);
+        l3.setName("lift 3");
+        l.add(l3);
+
+
 
 
         Mountain mountain = new Mountain("Killington");
@@ -85,8 +99,10 @@ public class SlopeActivity extends ActionBarActivity {
                 "Android Example List View"
         };
 
+        String[] arr = {"Lowell Thomas", "Glades", "Cliff Run"};
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, times);
+                android.R.layout.simple_list_item_1, android.R.id.text1, arr);
 
 
         // Assign adapter to ListView
