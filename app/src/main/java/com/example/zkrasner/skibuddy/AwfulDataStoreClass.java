@@ -67,5 +67,17 @@ public class AwfulDataStoreClass {
         return "no such trail";
     }
 
+    public static String returnRating(String a){
+        for(int i = 0; i < trails.size(); i++){
+            if(trails.get(i).equals(a)){
+                return average_rating.get(i).toString();
+            }
+
+
+        }
+
+        return "no such trail";
+    }
+
 
 }

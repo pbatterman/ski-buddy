@@ -20,10 +20,13 @@ public class SlopeData extends ActionBarActivity {
         Trail t = new Trail("icy", "4", "blue square");
         t.setName(slopeName);
 
+        String rating = AwfulDataStoreClass.returnRating(slopeName);
+        String condition = AwfulDataStoreClass.returnCondition(slopeName);
+
         TextView ratingText = (TextView) findViewById(R.id.rating);
-        ratingText.setText(t.getRating());
+        ratingText.setText(rating);
         TextView conditionText = (TextView) findViewById(R.id.condition);
-        conditionText.setText(t.getCondition());
+        conditionText.setText(condition);
         TextView difficultyText = (TextView) findViewById(R.id.difficulty);
 
 
