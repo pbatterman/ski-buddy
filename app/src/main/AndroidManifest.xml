@@ -34,6 +34,10 @@
             android:name=".MountainConditionActivity"
             android:label="@string/title_activity_mountain_condition" >
         </activity>
+        <activity
+            android:name=".ReportTrailConditions"
+            android:label="@string/title_activity_report_trail_conditions" >
+        </activity>
     </application>
 
 </manifest>

@@ -17,19 +17,33 @@ import java.util.ArrayList;
 public class SlopeActivity extends ActionBarActivity {
     String currentSlope;
     ListView listView;
+    ArrayList<Trail> t;
+    ArrayList<String> trailNames;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wait_time);
+        setContentView(R.layout.activity_slope);
         String mountainName = getIntent().getExtras().getString("mountain");
-
-        ArrayList<Trail> t = new ArrayList<Trail>();
+        trailNames = new ArrayList<String>();
+       t = new ArrayList<Trail>();
         Trail a = new Trail("icy", "3", "blue square");
         a.setName("Lowell Thomas");
         Trail b = new Trail("powdah", "5", "black diamond");
         b.setName("Glades brah");
         t.add(a);
         t.add(b);
+
+        if(!AwfulDataStoreClass.added_Once) {
+            AwfulDataStoreClass.insertTrail("Lowell Thomas");
+            AwfulDataStoreClass.insertTrail("Glades");
+            AwfulDataStoreClass.insertTrail("Cliff Run");
+            AwfulDataStoreClass.added_Once = true;
+        }
+
+
+
+        trailNames.add("Lowell Thomas");
+        trailNames.add("Glades");
 
         ArrayList<Lift> l = new ArrayList<Lift>();
         Lift l1 = new Lift();
@@ -117,6 +131,14 @@ public class SlopeActivity extends ActionBarActivity {
 
     public void back(View view) {
         Intent i = new Intent(this, MainActivity.class);
+        this.startActivity(i);
+    }
+
+    public void reportTimes(View view) {
+        String mountainNameString = getIntent().getExtras().getString("mountain");
+        Intent i = new Intent(this, ReportTrailConditions.class);
+        i.putExtra("mtnName", mountainNameString);
+        i.putStringArrayListExtra("trails", trailNames);
         this.startActivity(i);
     }
 }

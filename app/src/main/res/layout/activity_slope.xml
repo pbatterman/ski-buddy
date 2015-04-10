@@ -19,18 +19,22 @@
             android:text="Back"
             android:onClick="back"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:id="@+id/mountainName"/>
-
 
         <ListView
             android:id="@+id/list"
             android:layout_height="187dp"
             android:layout_width="match_parent"
-            android:layout_weight="0.81">
+            android:layout_weight="0.13">
         </ListView>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button2"
+            android:layout_gravity="center_horizontal"
+            android:onClick="reportTimes" />
 
     </LinearLayout>
 
