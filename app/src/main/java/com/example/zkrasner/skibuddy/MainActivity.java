@@ -12,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 import org.bitpipeline.lib.owm.OwmClient;
 import org.bitpipeline.lib.owm.WeatherData;
 import org.bitpipeline.lib.owm.WeatherStatusResponse;
@@ -30,6 +33,12 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+
+        Parse.initialize(this, "q3TW5WjUYJCEHqn4J2RVb8sscM8ZCIWZNQt7acL1", "umavEy2ekBXFPCfy7CGKQp9h3sOOf9AOClKThJri");
+
+
         Spinner spinner = (Spinner) findViewById(R.id.mountains_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -39,6 +48,16 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        // Create a new Parse object
+//        ParseObject testObject = new ParseObject("TestObject");
+//        testObject.put("foo", "bar");
+//        testObject.saveInBackground();
+
+//        ParseObject killington = new ParseObject("Mountain");
+//        killington.put("mountainName", "Killington");
+//        killington.saveInBackground();
+
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
@@ -92,5 +111,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         i.putExtra("mountain", mountainName);
         this.startActivity(i);
     }
+
 }
 
