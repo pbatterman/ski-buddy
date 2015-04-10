@@ -77,20 +77,20 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         System.out.println(parent.getItemAtPosition(pos));
         mountainName = (String) parent.getItemAtPosition(pos);
 
-        final ParseImageView imageView = (ParseImageView) findViewById(R.id.mountain_image);
 
 
 
         // find mountain by name
         ParseQuery query = new ParseQuery("Mountain");
         // MONT TREMBLANT HERE FOR SAMPLe
-        query.whereEqualTo("name", "Pico");
+        query.whereEqualTo("name", mountainName);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
 
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
                     // get image
+                    final ParseImageView imageView = (ParseImageView) findViewById(R.id.mountain_image);
                     final ParseFile imageFile = object.getParseFile("trailmap");
                     String fname = imageFile.getName();
                     System.out.println("filename: " + fname);
