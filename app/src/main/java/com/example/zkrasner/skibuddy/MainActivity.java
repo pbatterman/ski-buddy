@@ -4,16 +4,25 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import org.bitpipeline.lib.owm.OwmClient;
 import org.bitpipeline.lib.owm.WeatherData;
@@ -22,6 +31,7 @@ import org.bitpipeline.lib.owm.WeatherData.WeatherCondition;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
@@ -49,6 +59,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
+
         // Create a new Parse object
 //        ParseObject testObject = new ParseObject("TestObject");
 //        testObject.put("foo", "bar");
@@ -65,6 +76,50 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         System.out.println(parent.getItemAtPosition(pos));
         mountainName = (String) parent.getItemAtPosition(pos);
+
+        final ParseImageView imageView = (ParseImageView) findViewById(R.id.mountain_image);
+
+
+
+        // find mountain by name
+        ParseQuery query = new ParseQuery("Mountain");
+        // MONT TREMBLANT HERE FOR SAMPLe
+        query.whereEqualTo("name", "Pico");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    // get image
+                    final ParseFile imageFile = object.getParseFile("trailmap");
+                    String fname = imageFile.getName();
+                    System.out.println("filename: " + fname);
+                    imageFile.getDataInBackground(new GetDataCallback() {
+                        public void done(byte[] data, ParseException e) {
+                            if (e == null) {
+                                imageView.setParseFile(imageFile);
+                                imageView.loadInBackground(new GetDataCallback() {
+                                    public void done(byte[] data, ParseException e) {
+                                    }
+                                });
+
+
+
+                                // data has the bytes for the image
+                            } else {
+                                // something went wrong
+                            }
+                        }
+                    });
+//                    System.out.println("found");
+//                    String objName = (String) object.get("name");
+//                    System.out.println(objName);
+                } else {
+
+                }
+
+            }
+        });
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
