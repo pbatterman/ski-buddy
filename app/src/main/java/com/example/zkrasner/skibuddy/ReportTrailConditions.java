@@ -86,7 +86,7 @@ public class ReportTrailConditions extends ActionBarActivity {
         int rating = np.getValue();
 
 
-        AwfulDataStoreClass.InsertRating(curr_trail,q,rating);
+        TrailDataStore.InsertRating(curr_trail, q, rating);
 
     }
 }

@@ -1,20 +1,15 @@
 package com.example.zkrasner.skibuddy;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.Parse;
@@ -23,16 +18,6 @@ import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-
-import org.bitpipeline.lib.owm.OwmClient;
-import org.bitpipeline.lib.owm.WeatherData;
-import org.bitpipeline.lib.owm.WeatherStatusResponse;
-import org.bitpipeline.lib.owm.WeatherData.WeatherCondition;
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
@@ -150,7 +135,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
     public void showLiftTimes(View view) {
-        Intent i = new Intent(this, waitTimeActivity.class);
+        Intent i = new Intent(this, WaitTimeActivity.class);
         i.putExtra("mountain", mountainName);
         this.startActivity(i);
     }

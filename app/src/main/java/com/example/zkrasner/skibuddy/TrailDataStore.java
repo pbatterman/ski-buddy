@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Lucas on 4/9/15.
  */
-public class AwfulDataStoreClass {
+public class TrailDataStore {
 
     public static ArrayList<String> trails = new ArrayList<String>();
     public static ArrayList<Integer> observations = new ArrayList<Integer>();

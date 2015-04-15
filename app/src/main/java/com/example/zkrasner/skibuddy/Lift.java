@@ -17,7 +17,7 @@ public class Lift {
         this.capacity = capacity;
     }
 
-    public void injectHotStickyWaitTime(int a) { timeAverage.shoveThatDirtyMeasurementInMyArrayList(
+    public void injectHotStickyWaitTime(int a) { timeAverage.inputMeasurement(
             a
     );}
 
@@ -39,7 +39,7 @@ public class Lift {
     }
 
     public double getWaitTime() {
-        return timeAverage.returnMovingAverageToMyWaitingBrain();
+        return timeAverage.calculateMovingAverage();
     }
 
     public double getDuration() {

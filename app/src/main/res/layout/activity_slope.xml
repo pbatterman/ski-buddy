@@ -12,13 +12,6 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <Button
-            android:layout_width="500px"
-            android:layout_height="200px"
-            android:id="@+id/backButton"
-            android:text="Back"
-            android:onClick="back"/>
-
 
         <ListView
             android:id="@+id/list"

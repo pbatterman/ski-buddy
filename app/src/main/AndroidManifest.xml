@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".waitTimeActivity"
+            android:name=".WaitTimeActivity"
             android:label="@string/title_activity_wait_time" >
         </activity>
         <activity
@@ -27,7 +27,7 @@
             android:label="@string/title_activity_slope" >
         </activity>
         <activity
-            android:name=".SlopeData"
+            android:name=".SlopeDataStore"
             android:label="@string/title_activity_slope_data" >
         </activity>
         <activity

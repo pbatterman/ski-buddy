@@ -17,13 +17,13 @@ public class WeightedTimeAverage {
 
     }
 
-    public void shoveThatDirtyMeasurementInMyArrayList(int input){
+    public void inputMeasurement(int input){
         measurements.add(input);
         times.add(System.currentTimeMillis());
 
     }
 
-    public double returnMovingAverageToMyWaitingBrain(){
+    public double calculateMovingAverage(){
         if(measurements.size() == 0){
             return 0.0;
         }

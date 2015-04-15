@@ -1,7 +1,6 @@
 package com.example.zkrasner.skibuddy;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,11 +36,11 @@ public class SlopeActivity extends ActionBarActivity {
         t.add(b);
         t.add(d);
 
-        if(!AwfulDataStoreClass.added_Once) {
-            AwfulDataStoreClass.insertTrail("Lowell Thomas");
-            AwfulDataStoreClass.insertTrail("Glades");
-            AwfulDataStoreClass.insertTrail("Cliff Run");
-            AwfulDataStoreClass.added_Once = true;
+        if(!TrailDataStore.added_Once) {
+            TrailDataStore.insertTrail("Lowell Thomas");
+            TrailDataStore.insertTrail("Glades");
+            TrailDataStore.insertTrail("Cliff Run");
+            TrailDataStore.added_Once = true;
         }
 
 
@@ -82,8 +81,8 @@ public class SlopeActivity extends ActionBarActivity {
         // get lifts and wait times, put into strings to display in list
         String[] times = new String[mountain.getLifts().size()];
         for (int i = 0; i < mountain.getTrails().size(); i++) {
-            Trail fick = mountain.getTrails().get(i);
-            String name = fick.getName();
+            Trail testTrail = mountain.getTrails().get(i);
+            String name = testTrail.getName();
             times[i] = name;
         }
 
@@ -117,7 +116,7 @@ public class SlopeActivity extends ActionBarActivity {
     }
 
     public void showSlopeData(View view) {
-        Intent i = new Intent(this, SlopeData.class);
+        Intent i = new Intent(this, SlopeDataStore.class);
         i.putExtra("slopeName", currentSlope);
         this.startActivity(i);
     }

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class waitTimeActivity extends ActionBarActivity {
+public class WaitTimeActivity extends ActionBarActivity {
     ListView listView;
     ArrayList<Trail> t;
     ArrayList<Lift> l;
@@ -69,8 +69,8 @@ public class waitTimeActivity extends ActionBarActivity {
         // get lifts and wait times, put into strings to display in list
         String[] times = new String[mountain.getLifts().size()];
         for (int i = 0; i < mountain.getLifts().size(); i++) {
-            Lift fick = mountain.getLifts().get(i);
-            String waitTime = fick.getName() + ": " + fick.getWaitTime();
+            Lift testLift = mountain.getLifts().get(i);
+            String waitTime = testLift.getName() + ": " + testLift.getWaitTime();
             times[i] = waitTime;
         }
 

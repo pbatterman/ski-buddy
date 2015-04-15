@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
-public class SlopeData extends ActionBarActivity {
+public class SlopeDataStore extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +20,8 @@ public class SlopeData extends ActionBarActivity {
         Trail t = new Trail("icy", "4", "blue square");
         t.setName(slopeName);
 
-        String rating = AwfulDataStoreClass.returnRating(slopeName);
-        String condition = AwfulDataStoreClass.returnCondition(slopeName);
+        String rating = TrailDataStore.returnRating(slopeName);
+        String condition = TrailDataStore.returnCondition(slopeName);
 
         TextView ratingText = (TextView) findViewById(R.id.rating);
         ratingText.setText(rating);
