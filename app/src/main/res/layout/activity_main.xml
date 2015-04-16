@@ -88,4 +88,14 @@
 
     </LinearLayout>
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Buttono"
+        android:id="@+id/button3"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_centerHorizontal="true"
+        android:onClick="showLogin" />
+
 </RelativeLayout>

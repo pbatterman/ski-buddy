@@ -146,6 +146,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         this.startActivity(i);
     }
 
+    public void showLogin(View view) {
+        Intent i = new Intent(this, LoginActivity.class);
+        this.startActivity(i);
+    }
+
     public void showMountainConditions(View view) {
         Intent i = new Intent(this, MountainConditionActivity.class);
         i.putExtra("mountain", mountainName);
