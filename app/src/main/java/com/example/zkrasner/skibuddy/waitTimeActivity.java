@@ -1,126 +1,144 @@
 package com.example.zkrasner.skibuddy;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 
 public class WaitTimeActivity extends ActionBarActivity {
     ListView listView;
-    ArrayList<Trail> t;
     ArrayList<Lift> l;
+    String mountainName;
+    Mountain mountain;
+    WaitTimeActivity context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wait_time);
-        String mountainName = getIntent().getExtras().getString("mountain");
-
-
-        Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.lift_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter2);
+        mountainName = getIntent().getExtras().getString("mountain");
 
 
 
         TextView tv = (TextView) findViewById(R.id.mountainName);
         tv.setText(mountainName);
 
-        t = new ArrayList<Trail>();
-        Trail a = new Trail("icy", "3", "blue square");
-        Trail b = new Trail("powdah", "5", "black diamond");
-        t.add(a);
-        t.add(b);
-
+        mountain = new Mountain(mountainName);
         l = new ArrayList<Lift>();
-        Lift l1 = new Lift();
-        l1.setCapacity(3);
-        l1.setDuration(10.00);
-        l1.setWaitTime(12.00);
-        l1.setName("Fast Lift");
 
-        Lift l2 = new Lift();
-        l2.setCapacity(3);
-        l2.setDuration(4.00);
-        l2.setWaitTime(5.00);
-        l2.setName("Slow Bunny Hill");
-        l.add(l1);
-        l.add(l2);
+        ParseQuery pq = new ParseQuery("Mountain");
+        pq.whereEqualTo("name", mountainName);
+        pq.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                JSONArray jsonArr = object.getJSONArray("lifts");
+                for (int i = 0; i < jsonArr.length(); i++) {
+                    try {
+                        final String lift = jsonArr.getJSONObject(i).getString("name");
+                        System.out.println(lift);
+                        ParseQuery pq = new ParseQuery("Lift");
+                        pq.whereEqualTo("name", lift);
+                        pq.getFirstInBackground(new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(ParseObject object, ParseException e) {
+                                double duration = object.getDouble("duration");
+                                double waitTime = object.getDouble("waitTime");
+                                int capacity = object.getInt("capacity");
+
+                                Lift liftObject = new Lift();
+                                liftObject.setCapacity(capacity);
+                                liftObject.setDuration(duration);
+                                liftObject.setWaitTime(waitTime);
+                                liftObject.setName(lift);
+                                l.add(liftObject);
+                            }
+
+                        });
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                mountain.addLifts(l);
+
+                ArrayList<String> arr = new ArrayList<String>();
+                for(int i = 0; i < l.size(); i++) {
+                    arr.add(l.get(i).getName());
+                }
+                /*
+                Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, arr); //selected item will look like a spinner set from XML
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(spinnerArrayAdapter);
+                */
+
+                Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
+                // Create an ArrayAdapter using the string array and a default spinner layout
+                ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(context,
+                        R.array.lift_array, android.R.layout.simple_spinner_item);
+                // Specify the layout to use when the list of choices appears
+                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                // Apply the adapter to the spinner
+                spinner.setAdapter(adapter2);
+
+                // get lifts and wait times, put into strings to display in list
+                String[] times = new String[mountain.getLifts().size()];
+                for (int i = 0; i < mountain.getLifts().size(); i++) {
+                    Lift testLift = mountain.getLifts().get(i);
+                    String waitTime = testLift.getName() + ": " + testLift.getWaitTime();
+                    times[i] = waitTime;
+                }
+
+                listView = (ListView) findViewById(R.id.list);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
+                        android.R.layout.simple_list_item_1, android.R.id.text1, times);
 
 
-        Mountain mountain = new Mountain("Killington");
-        mountain.addTrails(t);
-        mountain.addLifts(l);
-
-        // get lifts and wait times, put into strings to display in list
-        String[] times = new String[mountain.getLifts().size()];
-        for (int i = 0; i < mountain.getLifts().size(); i++) {
-            Lift testLift = mountain.getLifts().get(i);
-            String waitTime = testLift.getName() + ": " + testLift.getWaitTime();
-            times[i] = waitTime;
-        }
-
-        listView = (ListView) findViewById(R.id.list);
-
-        String[] values = new String[] { "Android List View",
-                "Adapter implementation",
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter",
-                "Android Example List View"
-        };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, times);
+                // Assign adapter to ListView
+                listView.setAdapter(adapter);
+            }
+        });
 
 
-        // Assign adapter to ListView
-        listView.setAdapter(adapter);
+
     }
 
 
     public void reValidate(){
-        Mountain mountain = new Mountain("Killington");
-        mountain.addTrails(t);
+        mountain = new Mountain(mountainName);
         mountain.addLifts(l);
 
         // get lifts and wait times, put into strings to display in list
         String[] times = new String[mountain.getLifts().size()];
         for (int i = 0; i < mountain.getLifts().size(); i++) {
-            Lift fick = mountain.getLifts().get(i);
-            String waitTime = fick.getName() + ": " + fick.getWaitTime();
+            Lift lift = mountain.getLifts().get(i);
+            String waitTime = lift.getName() + ": " + lift.getWaitTime();
             times[i] = waitTime;
         }
 
         listView = (ListView) findViewById(R.id.list);
 
-        String[] values = new String[] { "Android List View",
-                "Adapter implementation",
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter",
-                "Android Example List View"
-        };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
                 android.R.layout.simple_list_item_1, android.R.id.text1, times);
 
 

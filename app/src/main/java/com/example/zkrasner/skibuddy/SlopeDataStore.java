@@ -6,34 +6,76 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import org.json.JSONException;
+
 
 public class SlopeDataStore extends ActionBarActivity {
 
+    String slopeName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slope_data);
-        String slopeName = getIntent().getExtras().getString("slopeName");
-        TextView tv = (TextView) findViewById(R.id.slopeName);
+        slopeName = getIntent().getExtras().getString("slopeName");
+        final TextView tv = (TextView) findViewById(R.id.slopeName);
         tv.setText(slopeName);
 
-        Trail t = new Trail("icy", "4", "blue square");
-        t.setName(slopeName);
+        ParseQuery pq = new ParseQuery("trail");
+        pq.whereEqualTo("name", slopeName);
+        pq.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                int rating = object.getInt("rating");
+                String ratingString = "" + rating;
+                int difficulty = object.getInt("difficulty");
+                String difficultyLevel = "";
+                if (difficulty == 1) {
+                    difficultyLevel = "Bunny Slope";
+                } else if (difficulty == 2) {
+                    difficultyLevel = "Green Circle";
+                } else if (difficulty == 3) {
+                    difficultyLevel = "Blue Square";
+                } else if (difficulty == 4) {
+                    difficultyLevel = "Black Diamond";
+                } else if (difficulty == 5) {
+                    difficultyLevel = "Double Black Diamond";
+                }
 
-        String rating = TrailDataStore.returnRating(slopeName);
-        String condition = TrailDataStore.returnCondition(slopeName);
+                int conditionRating = object.getInt("condition");
+                String condition = "";
+                if (conditionRating == 1) {
+                    condition = "Icy";
+                } else if (difficulty == 2) {
+                    condition = "Granular";
+                } else if (difficulty == 3) {
+                    condition = "Groomed";
+                } else if (difficulty == 4) {
+                    condition = "Packed Powder";
+                } else if (difficulty == 5) {
+                    condition = "Powder";
+                }
 
-        TextView ratingText = (TextView) findViewById(R.id.rating);
-        ratingText.setText(rating);
-        TextView conditionText = (TextView) findViewById(R.id.condition);
-        conditionText.setText(condition);
-        TextView difficultyText = (TextView) findViewById(R.id.difficulty);
+                Trail t = new Trail(condition, ratingString, difficultyLevel);
+                t.setName(slopeName);
 
+                String updatedRating = TrailDataStore.returnRating(slopeName);
+                String updatedCondition = TrailDataStore.returnCondition(slopeName);
 
+                TextView ratingText = (TextView) findViewById(R.id.rating);
+                ratingText.setText(ratingString);
+                TextView conditionText = (TextView) findViewById(R.id.condition);
+                conditionText.setText(condition);
+                TextView difficultyText = (TextView) findViewById(R.id.difficulty);
 
-        difficultyText.setText(t.getDifficulty());
+                difficultyText.setText(t.getDifficulty());
+            }
 
-
+        });
 
 
     }

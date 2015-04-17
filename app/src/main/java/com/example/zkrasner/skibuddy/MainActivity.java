@@ -67,7 +67,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         // find mountain by name
         ParseQuery query = new ParseQuery("Mountain");
-        // MONT TREMBLANT HERE FOR SAMPLe
+        // MONT TREMBLANT HERE FOR SAMPLE
         query.whereEqualTo("name", mountainName);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
 
@@ -87,8 +87,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                                     public void done(byte[] data, ParseException e) {
                                     }
                                 });
-
-
 
                                 // data has the bytes for the image
                             } else {
