@@ -68,10 +68,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         // find mountain by name
         ParseQuery query = new ParseQuery("Mountain");
-<<<<<<< HEAD
-        // MONT TREMBLANT HERE FOR SAMPLE
-=======
->>>>>>> origin/master
+
         query.whereEqualTo("name", mountainName);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
 
