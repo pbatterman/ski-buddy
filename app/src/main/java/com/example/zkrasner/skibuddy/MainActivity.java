@@ -20,6 +20,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 
+
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
     String mountainName;
 
@@ -67,7 +68,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         // find mountain by name
         ParseQuery query = new ParseQuery("Mountain");
-        // MONT TREMBLANT HERE FOR SAMPLe
         query.whereEqualTo("name", mountainName);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
 
@@ -96,9 +96,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                             }
                         }
                     });
-//                    System.out.println("found");
-//                    String objName = (String) object.get("name");
-//                    System.out.println(objName);
                 } else {
 
                 }
