@@ -17,9 +17,9 @@ public class Lift {
         this.capacity = capacity;
     }
 
-    public void injectHotStickyWaitTime(int a) { timeAverage.inputMeasurement(
-            a
-    );}
+    public void insertWaitTime(int a) {
+        timeAverage.inputMeasurement(a);
+    }
 
     public void setName(String name) {
         this.name = name;

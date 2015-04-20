@@ -1,7 +1,6 @@
 package com.example.zkrasner.skibuddy;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -197,7 +196,7 @@ public class WaitTimeActivity extends ActionBarActivity {
         Spinner mySpinner = (Spinner) findViewById(R.id.liftSpinner);
         int i = mySpinner.getSelectedItemPosition();
         Lift tmp = l.get(0);
-        tmp.injectHotStickyWaitTime(to_add);
+        tmp.insertWaitTime(to_add);
         reValidate();
     }
 
