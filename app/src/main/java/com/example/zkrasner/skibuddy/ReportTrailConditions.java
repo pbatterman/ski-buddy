@@ -9,22 +9,70 @@ import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 
 public class ReportTrailConditions extends ActionBarActivity {
-    public static String[] conditions = {"Icy", "Powder", "Groomed"};
+    public static String[] conditions = {"Icy","Granular", "Groomed", "Packed Powder", "Powder"};
+    public String mountain;
+    ArrayList<String> trailNames = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mountain = getIntent().getExtras().getString("mtnName");
         setContentView(R.layout.activity_report_trail_conditions);
 
+        // get all trails from mountain in intent
+
+        ParseQuery pq = new ParseQuery("Mountain");
+        pq.whereEqualTo("name", mountain);
+        pq.getFirstInBackground(new GetCallback<ParseObject>() {
+                                    @Override
+                                    public void done(ParseObject object, ParseException e) {
+                                        JSONArray jsonArr = object.getJSONArray("trails");
+                                        String[] arr = new String[jsonArr.length()];
+                                        for (int i = 0; i < arr.length; i++) {
+                                            try {
+                                                final String trail = jsonArr.getJSONObject(i).getString("name");
+                                                trailNames.add(trail);
+                                                ParseQuery pq = new ParseQuery("trail");
+                                                pq.whereEqualTo("name", trail);
+
+
+                                            } catch (JSONException e1) {
+                                                e1.printStackTrace();
+                                            }
+                                        }
+
+                                    }
+                                });
+
+        // display trails from specific mountain
         Spinner spinner = (Spinner) findViewById(R.id.trail_select_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.kill_runs, android.R.layout.simple_spinner_item);
+
+        String[] a = (String[]) trailNames.toArray();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,a);
+
+
+        
+
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
+
+        System.out.println("trailnames had size " + trailNames);
         spinner.setAdapter(adapter);
+
 
         Spinner spinner2 = (Spinner) findViewById(R.id.condition_select_spinner);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
@@ -71,6 +119,7 @@ public class ReportTrailConditions extends ActionBarActivity {
     public void onSubmitButtonClick(View view){
         Spinner trailSpinner = (Spinner) findViewById(R.id.trail_select_spinner);
         String curr_trail = trailSpinner.getSelectedItem().toString();
+        System.out.println("trail was " + curr_trail);
 
         Spinner conditionSpinner  = (Spinner) findViewById(R.id.condition_select_spinner);
         String curr_cond = conditionSpinner.getSelectedItem().toString();

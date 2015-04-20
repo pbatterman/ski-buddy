@@ -16,9 +16,11 @@
     </string-array>
 
     <string-array name="conditions_array">
-        <item>Powder</item>
         <item>Icy</item>
+        <item>Granular</item>
         <item>Groomed</item>
+        <item>Packed Powder</item>
+        <item>Powder</item>
     </string-array>
 
     <string-array name="kill_runs">

@@ -199,7 +199,6 @@ public class SlopeActivity extends ActionBarActivity {
     public void reportTimes(View view) {
         Intent i = new Intent(this, ReportTrailConditions.class);
         i.putExtra("mtnName", mountainName);
-        i.putStringArrayListExtra("trails", trailNames);
         this.startActivity(i);
     }
 }
