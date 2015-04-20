@@ -55,11 +55,10 @@ public class WaitTimeActivity extends ActionBarActivity {
             @Override
             public void done(ParseObject object, ParseException e) {
                 JSONArray jsonArr = object.getJSONArray("lifts");
-                System.out.println("JSON ARRAY LENGTH: " + jsonArr.length());
+
                 for (int i = 0; i < jsonArr.length(); i++) {
                     try {
                         final String lift = jsonArr.getJSONObject(i).getString("name");
-                        System.out.println(lift);
                         ParseQuery pq = new ParseQuery("Lift");
                         pq.whereEqualTo("name", lift);
                         pq.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -77,7 +76,6 @@ public class WaitTimeActivity extends ActionBarActivity {
                                 liftObject.setName(lift);
                                 l.add(liftObject);
                                 arr.add(liftObject.getName());
-                                System.out.println("ADDED LIFT");
                             }
 
                         });
@@ -86,7 +84,6 @@ public class WaitTimeActivity extends ActionBarActivity {
                     }
                 }
                 mountain.addLifts(l);
-                System.out.println("ARRAY SIZE: " + arr.size());
                 final Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
                 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, arr); //selected item will look like a spinner set from XML
                 spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -105,19 +102,7 @@ public class WaitTimeActivity extends ActionBarActivity {
                     }
                 });
 
-                /*Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
-                // Create an ArrayAdapter using the string array and a default spinner layout
-                ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(context,
-                        R.array.lift_array, android.R.layout.simple_spinner_item);
-                // Specify the layout to use when the list of choices appears
-                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // Apply the adapter to the spinner
-                spinner.setAdapter(adapter2);
-                */
-
                 // get lifts and wait times, put into strings to display in list
-
-
                 listView = (ListView) findViewById(R.id.list);
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
