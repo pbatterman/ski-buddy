@@ -31,13 +31,17 @@ public class WaitTimeActivity extends ActionBarActivity {
     String mountainName;
     Mountain mountain;
     WaitTimeActivity context;
+
+    final ArrayList<String> arr = new ArrayList<String>();
+    final ArrayList<String> times = new ArrayList<String>();
+    int selectedItemIndex = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wait_time);
         mountainName = getIntent().getExtras().getString("mountain");
-
 
 
         TextView tv = (TextView) findViewById(R.id.mountainName);
@@ -52,6 +56,7 @@ public class WaitTimeActivity extends ActionBarActivity {
             @Override
             public void done(ParseObject object, ParseException e) {
                 JSONArray jsonArr = object.getJSONArray("lifts");
+                System.out.println("JSON ARRAY LENGTH: " + jsonArr.length());
                 for (int i = 0; i < jsonArr.length(); i++) {
                     try {
                         final String lift = jsonArr.getJSONObject(i).getString("name");
@@ -63,6 +68,7 @@ public class WaitTimeActivity extends ActionBarActivity {
                             public void done(ParseObject object, ParseException e) {
                                 double duration = object.getDouble("duration");
                                 double waitTime = object.getDouble("waitTime");
+                                times.add("" + waitTime);
                                 int capacity = object.getInt("capacity");
 
                                 Lift liftObject = new Lift();
@@ -71,6 +77,8 @@ public class WaitTimeActivity extends ActionBarActivity {
                                 liftObject.setWaitTime(waitTime);
                                 liftObject.setName(lift);
                                 l.add(liftObject);
+                                arr.add(liftObject.getName());
+                                System.out.println("ADDED LIFT");
                             }
 
                         });
@@ -79,19 +87,26 @@ public class WaitTimeActivity extends ActionBarActivity {
                     }
                 }
                 mountain.addLifts(l);
-
-                ArrayList<String> arr = new ArrayList<String>();
-                for(int i = 0; i < l.size(); i++) {
-                    arr.add(l.get(i).getName());
-                }
-                /*
-                Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
+                System.out.println("ARRAY SIZE: " + arr.size());
+                final Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
                 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, arr); //selected item will look like a spinner set from XML
                 spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(spinnerArrayAdapter);
-                */
 
-                Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view,
+                                               int position, long id) {
+                        selectedItemIndex = spinner.getSelectedItemPosition();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        selectedItemIndex = 0;
+                    }
+                });
+
+                /*Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
                 // Create an ArrayAdapter using the string array and a default spinner layout
                 ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(context,
                         R.array.lift_array, android.R.layout.simple_spinner_item);
@@ -99,14 +114,10 @@ public class WaitTimeActivity extends ActionBarActivity {
                 adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 // Apply the adapter to the spinner
                 spinner.setAdapter(adapter2);
+                */
 
                 // get lifts and wait times, put into strings to display in list
-                String[] times = new String[mountain.getLifts().size()];
-                for (int i = 0; i < mountain.getLifts().size(); i++) {
-                    Lift testLift = mountain.getLifts().get(i);
-                    String waitTime = testLift.getName() + ": " + testLift.getWaitTime();
-                    times[i] = waitTime;
-                }
+
 
                 listView = (ListView) findViewById(R.id.list);
 
@@ -177,27 +188,17 @@ public class WaitTimeActivity extends ActionBarActivity {
         int to_add;
         if(intermediate.length() == 0){
             to_add = 0;
-        }else {
+        } else {
             to_add = Integer.parseInt(intermediate);
         }
 
 
 
-        Spinner mySpinner=(Spinner) findViewById(R.id.liftSpinner);
-        String text = mySpinner.getSelectedItem().toString();
-        if(text.equals("Fast Lift")){
-            Lift tmp = l.get(0);
-            tmp.injectHotStickyWaitTime(to_add);
-            reValidate();
-            return;
-        }
-
-        Lift tmp = l.get(1);
+        Spinner mySpinner = (Spinner) findViewById(R.id.liftSpinner);
+        int i = mySpinner.getSelectedItemPosition();
+        Lift tmp = l.get(0);
         tmp.injectHotStickyWaitTime(to_add);
-
-
         reValidate();
-
     }
 
     public void back(View view) {
