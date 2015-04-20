@@ -12,7 +12,6 @@ import android.widget.ListView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -46,14 +45,14 @@ public class SlopeActivity extends ActionBarActivity {
 
         listView = (ListView) findViewById(R.id.list);
 
-        ParseQuery pq = new ParseQuery("Mountain");
-        pq.whereEqualTo("name", mountainName);
-        pq.getFirstInBackground(new GetCallback<ParseObject>() {
+        ParseQuery slopeQuery = new ParseQuery("Mountain");
+        slopeQuery.whereEqualTo("name", mountainName);
+        slopeQuery.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
                 JSONArray jsonArr = object.getJSONArray("trails");
                 String[] arr = new String[jsonArr.length()];
-                for(int i = 0; i < arr.length; i++){
+                for (int i = 0; i < arr.length; i++) {
                     try {
                         final String trail = jsonArr.getJSONObject(i).getString("name");
                         trailNames.add(trail);
@@ -109,7 +108,7 @@ public class SlopeActivity extends ActionBarActivity {
                     arr[i] = trailNames.get(i);
                 }
 
-                if(!TrailDataStore.added_Once) {
+                if (!TrailDataStore.added_Once) {
                     for (int i = 0; i < trailNames.size(); i++) {
                         TrailDataStore.insertTrail(trailNames.get(i));
                     }
@@ -130,7 +129,7 @@ public class SlopeActivity extends ActionBarActivity {
                 });
 
                 jsonArr = object.getJSONArray("lifts");
-                for(int i = 0; i < jsonArr.length(); i++){
+                for (int i = 0; i < jsonArr.length(); i++) {
                     try {
                         final String lift = jsonArr.getJSONObject(i).getString("name");
                         ParseQuery pq = new ParseQuery("Lift");
@@ -163,7 +162,7 @@ public class SlopeActivity extends ActionBarActivity {
     }
 
     public void showSlopeData(View view) {
-        Intent i = new Intent(this, SlopeDataStore.class);
+        Intent i = new Intent(this, ConditionDataStore.class);
         i.putExtra("slopeName", currentSlope);
         this.startActivity(i);
     }

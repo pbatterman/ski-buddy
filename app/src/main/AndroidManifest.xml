@@ -37,7 +37,7 @@
             android:label="@string/title_activity_slope" >
         </activity>
         <activity
-            android:name=".SlopeDataStore"
+            android:name=".ConditionDataStore"
             android:label="@string/title_activity_slope_data" >
         </activity>
         <activity

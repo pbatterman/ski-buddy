@@ -14,7 +14,7 @@ import com.parse.ParseQuery;
 import org.json.JSONException;
 
 
-public class SlopeDataStore extends ActionBarActivity {
+public class ConditionDataStore extends ActionBarActivity {
 
     String slopeName;
     @Override

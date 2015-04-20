@@ -45,16 +45,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-
-        // Create a new Parse object
-//        ParseObject testObject = new ParseObject("TestObject");
-//        testObject.put("foo", "bar");
-//        testObject.saveInBackground();
-
-//        ParseObject killington = new ParseObject("Mountain");
-//        killington.put("mountainName", "Killington");
-//        killington.saveInBackground();
-
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
@@ -69,6 +59,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         // find mountain by name
         ParseQuery query = new ParseQuery("Mountain");
 
+
+        // find and display trail map
         query.whereEqualTo("name", mountainName);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
 
