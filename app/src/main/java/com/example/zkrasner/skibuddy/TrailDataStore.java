@@ -15,6 +15,7 @@ public class TrailDataStore {
     public static boolean added_Once = false;
 
 
+    // Inserts a trail into the list
     public static void insertTrail(String a){
         trails.add(a);
         observations.add(0);
@@ -22,6 +23,7 @@ public class TrailDataStore {
         average_rating.add(0);
     }
 
+    // Gets the index for the trails
     public static int getTrailIndex(String a){
         for(int i = 0; i < trails.size(); i++){
             if(trails.get(i).equals(a)){
@@ -34,6 +36,7 @@ public class TrailDataStore {
         return -1;
     }
 
+    // Inserts rating into running average
     public static void InsertRating(String a, int condition, int rating){
         int index = getTrailIndex(a);
         int old_number = observations.get(index);
@@ -53,7 +56,7 @@ public class TrailDataStore {
 
     }
 
-
+    // Returns the average condition rating
     public static String returnCondition(String a){
         for(int i = 0; i < trails.size(); i++){
             if(trails.get(i).equals(a)){
@@ -67,6 +70,7 @@ public class TrailDataStore {
         return "no such trail";
     }
 
+    // Returns the average rating
     public static String returnRating(String a){
         for(int i = 0; i < trails.size(); i++){
             if(trails.get(i).equals(a)){

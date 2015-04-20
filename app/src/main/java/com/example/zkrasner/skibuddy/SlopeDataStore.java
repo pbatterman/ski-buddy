@@ -25,6 +25,7 @@ public class SlopeDataStore extends ActionBarActivity {
         final TextView tv = (TextView) findViewById(R.id.slopeName);
         tv.setText(slopeName);
 
+        // Find the proper trail from Parse and create a new trail object
         ParseQuery pq = new ParseQuery("trail");
         pq.whereEqualTo("name", slopeName);
         pq.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -33,6 +34,8 @@ public class SlopeDataStore extends ActionBarActivity {
                 int rating = object.getInt("rating");
                 String ratingString = "" + rating;
                 int difficulty = object.getInt("difficulty");
+
+                // Use integer to find the right String
                 String difficultyLevel = "";
                 if (difficulty == 1) {
                     difficultyLevel = "Bunny Slope";
@@ -48,6 +51,8 @@ public class SlopeDataStore extends ActionBarActivity {
 
                 int conditionRating = object.getInt("condition");
                 String condition = "";
+
+                // Use integer to find the right String
                 if (conditionRating == 1) {
                     condition = "Icy";
                 } else if (difficulty == 2) {
@@ -63,9 +68,11 @@ public class SlopeDataStore extends ActionBarActivity {
                 Trail t = new Trail(condition, ratingString, difficultyLevel);
                 t.setName(slopeName);
 
+                // Find the running average rating
                 String updatedRating = TrailDataStore.returnRating(slopeName);
                 String updatedCondition = TrailDataStore.returnCondition(slopeName);
 
+                // Set the proper values
                 TextView ratingText = (TextView) findViewById(R.id.rating);
                 ratingText.setText(ratingString);
                 TextView conditionText = (TextView) findViewById(R.id.condition);
