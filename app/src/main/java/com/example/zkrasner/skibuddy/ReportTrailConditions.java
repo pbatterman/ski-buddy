@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
@@ -24,6 +25,7 @@ public class ReportTrailConditions extends ActionBarActivity {
     public static String[] conditions = {"Icy","Granular", "Groomed", "Packed Powder", "Powder"};
     public String mountain;
     ArrayList<String> trailNames = new ArrayList<String>();
+    int selectedItemIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +59,11 @@ public class ReportTrailConditions extends ActionBarActivity {
                                 });
 
         // display trails from specific mountain
-        Spinner spinner = (Spinner) findViewById(R.id.trail_select_spinner);
-
-        String[] a = (String[]) trailNames.toArray();
-
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,a);
+        final Spinner spinner = (Spinner) findViewById(R.id.trail_select_spinner);
 
 
-        
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,trailNames);
+
 
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -72,6 +71,19 @@ public class ReportTrailConditions extends ActionBarActivity {
 
         System.out.println("trailnames had size " + trailNames);
         spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                selectedItemIndex = spinner.getSelectedItemPosition();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedItemIndex = 0;
+            }
+        });
 
 
         Spinner spinner2 = (Spinner) findViewById(R.id.condition_select_spinner);
@@ -118,11 +130,12 @@ public class ReportTrailConditions extends ActionBarActivity {
 
     public void onSubmitButtonClick(View view){
         Spinner trailSpinner = (Spinner) findViewById(R.id.trail_select_spinner);
-        String curr_trail = trailSpinner.getSelectedItem().toString();
+        String curr_trail = trailNames.get(selectedItemIndex);
         System.out.println("trail was " + curr_trail);
 
         Spinner conditionSpinner  = (Spinner) findViewById(R.id.condition_select_spinner);
         String curr_cond = conditionSpinner.getSelectedItem().toString();
+        System.out.println("curr cond was " + curr_cond);
 
         int q = -1;
         for(int i = 0; i < conditions.length; i++){
@@ -131,11 +144,32 @@ public class ReportTrailConditions extends ActionBarActivity {
             }
         }
 
+        final int q_done = q;
+
         NumberPicker np = (NumberPicker) findViewById(R.id.rating_picker);
-        int rating = np.getValue();
+        final int rating = np.getValue();
 
 
-        TrailDataStore.InsertRating(curr_trail, q, rating);
+        ParseQuery pq = new ParseQuery("trail");
+        pq.whereEqualTo("name", curr_trail);
+
+
+        pq.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+
+                object.put("conditionRating", q_done);
+                object.put("rating", rating);
+                object.saveInBackground();
+
+
+            }
+        });
+
+
+
+
+
 
     }
 }
