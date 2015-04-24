@@ -34,4 +34,8 @@ public class Mountain {
     public void addLifts(ArrayList<Lift> t){
         this.lifts = t;
     }
+
+    public void addLift(Lift l) {
+        this.lifts.add(l);
+    }
 }

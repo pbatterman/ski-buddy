@@ -19,10 +19,17 @@ import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
     String mountainName;
+    ArrayList<Lift> lifts = new ArrayList<Lift>();
+    ArrayList<String> liftNames = new ArrayList<String>();
+    ArrayList<String> times = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +100,43 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
             }
         });
+
+        ParseQuery pq = new ParseQuery("Mountain");
+
+        pq.whereEqualTo("name", mountainName);
+        pq.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                JSONArray jsonArr = object.getJSONArray("lifts");
+
+                for (int i = 0; i < jsonArr.length(); i++) {
+                    try {
+                        final String lift = jsonArr.getJSONObject(i).getString("name");
+                        ParseQuery pq = new ParseQuery("Lift");
+                        pq.whereEqualTo("name", lift);
+                        pq.getFirstInBackground(new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(ParseObject object, ParseException e) {
+                                double duration = object.getDouble("duration");
+                                double waitTime = object.getDouble("waitTime");
+                                times.add("" + waitTime);
+                                int capacity = object.getInt("capacity");
+
+                                Lift liftObject = new Lift();
+                                liftObject.setCapacity(capacity);
+                                liftObject.setDuration(duration);
+                                liftObject.setWaitTime(waitTime);
+                                liftObject.setName(lift);
+                                lifts.add(liftObject);
+                                liftNames.add(liftObject.getName());
+                            }
+                        });
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
@@ -125,6 +169,18 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void showLiftTimes(View view) {
         Intent i = new Intent(this, WaitTimeActivity.class);
         i.putExtra("mountain", mountainName);
+        Mountain mountain = new Mountain(mountainName);
+
+        mountain.addLifts(lifts);
+
+        // get lifts and wait times, put into strings to display in list
+        String[] times = new String[mountain.getLifts().size()];
+        for (int j = 0; j < mountain.getLifts().size(); j++) {
+            Lift lift = mountain.getLifts().get(j);
+            String waitTime = lift.getName() + ": " + lift.getWaitTime();
+            times[j] = waitTime;
+        }
+        i.putExtra("liftStrings", times);
         this.startActivity(i);
     }
 

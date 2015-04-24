@@ -16,12 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/liftSpinner"
+            android:paddingBottom="10dp"
             />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/liftSpinner"
+
             android:inputType="number"
             android:ems="10"
             android:id="@+id/numberTextBox" />
@@ -32,7 +34,7 @@
             android:text="Submit"
             android:id="@+id/button"
             android:layout_gravity="center_horizontal"
-            android:onClick="onTestButtonSelected" />
+            android:onClick="onSubmitButtonSelected" />
 
         <ListView
         android:id="@+id/list"

@@ -26,14 +26,18 @@ public class ReportTrailConditions extends ActionBarActivity {
     public String mountain;
     ArrayList<String> trailNames = new ArrayList<String>();
     int selectedItemIndex = 0;
+    private Spinner conditionSelectionSpinner;
+    private ReportTrailConditions context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mountain = getIntent().getExtras().getString("mtnName");
         setContentView(R.layout.activity_report_trail_conditions);
+        context = this;
 
         // get all trails from mountain in intent
+        final Spinner trailSelectedSpinner = null;
 
         ParseQuery pq = new ParseQuery("Mountain");
         pq.whereEqualTo("name", mountain);
@@ -48,60 +52,53 @@ public class ReportTrailConditions extends ActionBarActivity {
                                                 trailNames.add(trail);
                                                 ParseQuery pq = new ParseQuery("trail");
                                                 pq.whereEqualTo("name", trail);
-
-
                                             } catch (JSONException e1) {
                                                 e1.printStackTrace();
                                             }
                                         }
 
+                                        // display trails from specific mountain
+                                        final Spinner trailSelectedSpinner = (Spinner) findViewById(R.id.trail_select_spinner);
+                                        ArrayAdapter<String> trailNamesAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_item,trailNames);
+
+
+                                        // Specify the layout to use when the list of choices appears
+                                        trailNamesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                        // Apply the adapter to the spinner
+
+                                        System.out.println("trailnames had size " + trailNames);
+                                        trailSelectedSpinner.setAdapter(trailNamesAdapter);
+                                        trailSelectedSpinner.setSelection(0);
+
+                                        trailSelectedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+                                            @Override
+                                            public void onItemSelected(AdapterView<?> parent, View view,
+                                                                       int position, long id) {
+                                                selectedItemIndex = trailSelectedSpinner.getSelectedItemPosition();
+                                            }
+
+                                            @Override
+                                            public void onNothingSelected(AdapterView<?> parent) {
+                                                selectedItemIndex = 0;
+                                            }
+                                        });
                                     }
                                 });
 
-        // display trails from specific mountain
-        final Spinner spinner = (Spinner) findViewById(R.id.trail_select_spinner);
 
-
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,trailNames);
-
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-
-        System.out.println("trailnames had size " + trailNames);
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                selectedItemIndex = spinner.getSelectedItemPosition();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                selectedItemIndex = 0;
-            }
-        });
-
-
-        Spinner spinner2 = (Spinner) findViewById(R.id.condition_select_spinner);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+        conditionSelectionSpinner = (Spinner) findViewById(R.id.condition_select_spinner);
+        ArrayAdapter<CharSequence> conditionsAdapter = ArrayAdapter.createFromResource(this,
                 R.array.conditions_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        conditionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner2.setAdapter(adapter2);
+        conditionSelectionSpinner.setAdapter(conditionsAdapter);
 
 
-        NumberPicker np=
-                (NumberPicker) findViewById(R.id.rating_picker);
-        np.setMaxValue(10);
+        NumberPicker np= (NumberPicker) findViewById(R.id.rating_picker);
         np.setMinValue(1);
-
-
-
+        np.setMaxValue(10);
+        np.setValue(5);
     }
 
 

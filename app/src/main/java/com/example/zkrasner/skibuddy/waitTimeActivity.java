@@ -28,10 +28,11 @@ public class WaitTimeActivity extends ActionBarActivity {
     ListView listView;
     ArrayList<Lift> l;
     String mountainName;
+    String[] startTimes;
     Mountain mountain;
     WaitTimeActivity context;
 
-    final ArrayList<String> arr = new ArrayList<String>();
+    final ArrayList<String> liftNames = new ArrayList<String>();
     final ArrayList<String> times = new ArrayList<String>();
     int selectedItemIndex = 0;
 
@@ -41,6 +42,7 @@ public class WaitTimeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wait_time);
         mountainName = getIntent().getExtras().getString("mountain");
+        startTimes = getIntent().getExtras().getStringArray("liftStrings");
 
 
         TextView tv = (TextView) findViewById(R.id.mountainName);
@@ -75,25 +77,24 @@ public class WaitTimeActivity extends ActionBarActivity {
                                 liftObject.setWaitTime(waitTime);
                                 liftObject.setName(lift);
                                 l.add(liftObject);
-                                arr.add(liftObject.getName());
+                                liftNames.add(liftObject.getName());
                             }
-
                         });
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     }
                 }
-                mountain.addLifts(l);
-                final Spinner spinner = (Spinner) findViewById(R.id.liftSpinner);
-                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, arr); //selected item will look like a spinner set from XML
-                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(spinnerArrayAdapter);
+                final Spinner liftSpinner = (Spinner) findViewById(R.id.liftSpinner);
+                ArrayAdapter<String> liftSpinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, liftNames); //selected item will look like a spinner set from XML
+                liftSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                liftSpinner.setAdapter(liftSpinnerArrayAdapter);
 
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+                liftSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
-                        selectedItemIndex = spinner.getSelectedItemPosition();
+                        selectedItemIndex = liftSpinner.getSelectedItemPosition();
                     }
 
                     @Override
@@ -106,15 +107,14 @@ public class WaitTimeActivity extends ActionBarActivity {
                 listView = (ListView) findViewById(R.id.list);
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_list_item_1, android.R.id.text1, times);
+                        android.R.layout.simple_list_item_1, android.R.id.text1, startTimes);
 
 
                 // Assign adapter to ListView
                 listView.setAdapter(adapter);
+
             }
         });
-
-
 
     }
 
@@ -164,9 +164,7 @@ public class WaitTimeActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    public void onTestButtonSelected(View view){
+    public void onSubmitButtonSelected(View view){
         EditText e = (EditText) findViewById(R.id.numberTextBox);
         String intermediate = e.getText().toString();
         int to_add;
@@ -175,9 +173,6 @@ public class WaitTimeActivity extends ActionBarActivity {
         } else {
             to_add = Integer.parseInt(intermediate);
         }
-
-
-
         Spinner mySpinner = (Spinner) findViewById(R.id.liftSpinner);
         int i = mySpinner.getSelectedItemPosition();
         Lift tmp = l.get(0);

@@ -10,11 +10,13 @@ public class Lift {
     private int capacity;
     private WeightedTimeAverage timeAverage;
 
-    public Lift(){ timeAverage = new WeightedTimeAverage();}
+    public Lift(){
+        timeAverage = new WeightedTimeAverage();
+    }
 
 
     public void setCapacity(int capacity) {
-        this.capacity = capacity;
+      this.capacity = capacity;
     }
 
     public void insertWaitTime(int a) {
