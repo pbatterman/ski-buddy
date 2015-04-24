@@ -2,6 +2,11 @@ package com.example.zkrasner.skibuddy;
 
 import android.os.AsyncTask;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
 import org.bitpipeline.lib.owm.OwmClient;
 import org.bitpipeline.lib.owm.WeatherData;
 import org.bitpipeline.lib.owm.WeatherStatusResponse;
@@ -19,6 +24,8 @@ public class RetrieveWeatherData extends AsyncTask<String, Void, ArrayList<Strin
 
     @Override
     protected ArrayList<String> doInBackground(String... city) {
+
+
         OwmClient owm = new OwmClient();
         WeatherStatusResponse currentWeather = null;
         ArrayList<String> list = new ArrayList<String>();

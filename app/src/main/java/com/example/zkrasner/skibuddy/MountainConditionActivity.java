@@ -7,6 +7,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -33,6 +47,47 @@ public class MountainConditionActivity extends ActionBarActivity {
         weatherText.setText(currentWeather.get(0));
         TextView tempText = (TextView) findViewById(R.id.temperature_number);
         tempText.setText(currentWeather.get(1));
+
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        ParseQuery woiedQuery = new ParseQuery("Mountain");
+        // need to get mountainName from mainActivity intent
+        woiedQuery.whereEqualTo("name", mountainName);
+        woiedQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    // get image
+                    String wid = object.getString("woeid");
+                    String url ="http://weather.yahooapis.com/forecastrss?w=" + wid + "&u=f";
+
+                    // Request a string response from the provided URL.
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    // Display the first 500 characters of the response string.
+                                    System.out.println("Response is: " + response.substring(0, 500));
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("That didn't work!");
+                        }
+                    });
+                    // Add the request to the RequestQueue.
+                    queue.add(stringRequest);
+
+
+
+                } else {
+
+                }
+
+            }
+        });
+
+
     }
 
 
