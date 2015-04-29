@@ -8,8 +8,11 @@
     android:id="@+id/trailConditionReportLayout">
 
 
+
+
+
     <NumberPicker
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rating_picker"
         android:layout_alignParentBottom="true"
@@ -54,8 +57,26 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Rate Trails"
-        android:id="@+id/textView"
+        android:id="@+id/textViewTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate Slope"
+        android:id="@+id/textView_rating"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/rating_picker"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Slope Condition"
+        android:id="@+id/textView_conditions"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-40dp"
+        android:layout_above="@id/condition_select_spinner"/>
 
 </RelativeLayout>
