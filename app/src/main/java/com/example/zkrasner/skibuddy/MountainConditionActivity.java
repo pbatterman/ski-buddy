@@ -14,10 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.parse.GetCallback;
-import com.parse.GetDataCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -32,7 +29,8 @@ public class MountainConditionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mountain_condition);
         String mountainName = getIntent().getExtras().getString("mountain");
-        AsyncTask<String, Void, ArrayList<String>> task = new RetrieveWeatherData().execute(mountainName);
+
+        /* AsyncTask<String, Void, ArrayList<String>> task = new RetrieveWeatherData().execute(mountainName);
         ArrayList<String> currentWeather = null;
         try {
             currentWeather = task.get();
@@ -40,13 +38,12 @@ public class MountainConditionActivity extends ActionBarActivity {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }
+        }*/
+
         TextView mountainText = (TextView) findViewById(R.id.mountain_name);
         mountainText.setText(mountainName);
-        TextView weatherText = (TextView) findViewById(R.id.weather);
-        weatherText.setText(currentWeather.get(0));
         TextView tempText = (TextView) findViewById(R.id.temperature_number);
-        tempText.setText(currentWeather.get(1));
+        tempText.setText("0");
 
         final RequestQueue queue = Volley.newRequestQueue(this);
         ParseQuery woiedQuery = new ParseQuery("Mountain");
@@ -66,8 +63,21 @@ public class MountainConditionActivity extends ActionBarActivity {
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    // Display the first 500 characters of the response string.
-                                    System.out.println("Response is: " + response.substring(0, 500));
+
+                                        // Searching for weather condition
+                                    String target = "<yweather:condition  text=\"";
+                                    String end = "\"";
+                                    String weather = parseText(response, target, end);
+                                    TextView weatherText = (TextView) findViewById(R.id.weather);
+                                    weatherText.setText(weather);
+
+
+                                        // Searching for temperature
+                                    target = "temp=\"";
+                                    String temperature = parseText(response, target, end);
+                                    TextView tempText = (TextView) findViewById(R.id.temperature_number);
+                                    tempText.setText(temperature);
+
                                 }
                             }, new Response.ErrorListener() {
                         @Override
@@ -88,6 +98,24 @@ public class MountainConditionActivity extends ActionBarActivity {
         });
 
 
+    }
+
+    // A function that returns a substring between two substrings
+    private String parseText(String str, String preString, String postString) {
+
+        String found = "";
+        int begin = str.indexOf(preString);
+        if (begin == -1) {
+            return "";
+        }
+        begin += preString.length();
+        int end = str.indexOf(postString, begin);
+
+        if (end == -1) {
+            return "";
+        }
+
+        return str.substring(begin, end);
     }
 
 
