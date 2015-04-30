@@ -24,24 +24,55 @@ import java.util.ArrayList;
 public class SlopeActivity extends ActionBarActivity {
     String currentSlope;
     ListView listView;
-    ArrayList<Trail> t;
-    ArrayList<Lift> l;
+
+    // The list of Trail objects
+    ArrayList<Trail> trails;
+
+    // The list of Lift objects
+    ArrayList<Lift> lifts;
+
+    // The list of trail names
     ArrayList<String> trailNames;
+
+    // A way to save the context when creating GUI objects
     SlopeActivity context;
+
+    // The Mountain object
     Mountain mountain;
+
+    // The Mountain name
     String mountainName;
+
+    // The current username of the user
+    String currentUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slope);
-        mountainName = getIntent().getExtras().getString("mountain");
+
+        // Initialize arrays
         trailNames = new ArrayList<String>();
-        t = new ArrayList<Trail>();
-        l = new ArrayList<Lift>();
+        trails = new ArrayList<Trail>();
+        lifts = new ArrayList<Lift>();
+
+        // Context is this
         context = this;
+<<<<<<< HEAD
+=======
+
+        // Set up the mountain object
         mountainName = getIntent().getExtras().getString("mountain");
+>>>>>>> origin/master
         mountain = new Mountain(mountainName);
+
+        currentUserName = getIntent().getExtras().getString("username");
+        if (currentUserName != null) {
+            System.out.println("CURRENT USERNAME: " + currentUserName);
+        }
+        else {
+            System.out.println("null username");
+        }
 
         listView = (ListView) findViewById(R.id.list);
 
@@ -64,36 +95,14 @@ public class SlopeActivity extends ActionBarActivity {
                                 int rating = object.getInt("rating");
                                 String ratingString = "" + rating;
                                 int difficulty = object.getInt("difficulty");
-                                String difficultyLevel = "";
-                                if (difficulty == 1) {
-                                    difficultyLevel = "Bunny Slope";
-                                } else if (difficulty == 2) {
-                                    difficultyLevel = "Green Circle";
-                                } else if (difficulty == 3) {
-                                    difficultyLevel = "Blue Square";
-                                } else if (difficulty == 4) {
-                                    difficultyLevel = "Black Diamond";
-                                } else if (difficulty == 5) {
-                                    difficultyLevel = "Double Black Diamond";
-                                }
+                                String difficultyLevel = getDifficulty(difficulty);
 
                                 int conditionRating = object.getInt("condition");
-                                String condition = "";
-                                if (conditionRating == 1) {
-                                    condition = "Icy";
-                                } else if (difficulty == 2) {
-                                    condition = "Granular";
-                                } else if (difficulty == 3) {
-                                    condition = "Groomed";
-                                } else if (difficulty == 4) {
-                                    condition = "Packed Powder";
-                                } else if (difficulty == 5) {
-                                    condition = "Powder";
-                                }
+                                String condition = getCondition(conditionRating);
 
                                 Trail trailObject = new Trail(condition, ratingString, difficultyLevel);
                                 trailObject.setName(trail);
-                                t.add(trailObject);
+                                trails.add(trailObject);
                             }
 
                         });
@@ -102,7 +111,7 @@ public class SlopeActivity extends ActionBarActivity {
                     }
                 }
 
-                mountain.addTrails(t);
+                mountain.addTrails(trails);
 
                 for (int i = 0; i < trailNames.size(); i++) {
                     arr[i] = trailNames.get(i);
@@ -146,7 +155,7 @@ public class SlopeActivity extends ActionBarActivity {
                                 liftObject.setDuration(duration);
                                 liftObject.setWaitTime(waitTime);
                                 liftObject.setName(lift);
-                                l.add(liftObject);
+                                lifts.add(liftObject);
                             }
 
                         });
@@ -154,16 +163,51 @@ public class SlopeActivity extends ActionBarActivity {
                         e1.printStackTrace();
                     }
                 }
-                mountain.addLifts(l);
+                mountain.addLifts(lifts);
             }
         });
 
 
     }
 
+    // Getting the correct condition String
+    private String getCondition(int conditionRating) {
+        String condition = "";
+        if (conditionRating == 1) {
+            condition = "Icy";
+        } else if (conditionRating == 2) {
+            condition = "Granular";
+        } else if (conditionRating == 3) {
+            condition = "Groomed";
+        } else if (conditionRating == 4) {
+            condition = "Packed Powder";
+        } else if (conditionRating == 5) {
+            condition = "Powder";
+        }
+        return condition;
+    }
+
+    // Getting the correct difficulty String
+    private String getDifficulty(int difficulty) {
+        String difficultyLevel = "";
+        if (difficulty == 1) {
+            difficultyLevel = "Bunny Slope";
+        } else if (difficulty == 2) {
+            difficultyLevel = "Green Circle";
+        } else if (difficulty == 3) {
+            difficultyLevel = "Blue Square";
+        } else if (difficulty == 4) {
+            difficultyLevel = "Black Diamond";
+        } else if (difficulty == 5) {
+            difficultyLevel = "Double Black Diamond";
+        }
+        return difficultyLevel;
+    }
+
     public void showSlopeData(View view) {
         Intent i = new Intent(this, ConditionDataStore.class);
         i.putExtra("slopeName", currentSlope);
+        i.putExtra("username", currentUserName);
         this.startActivity(i);
     }
 

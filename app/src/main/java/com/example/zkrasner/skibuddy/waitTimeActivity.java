@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class WaitTimeActivity extends ActionBarActivity {
     ListView listView;
-    ArrayList<Lift> l;
+    ArrayList<Lift> lifts;
     String mountainName;
     String[] startTimes;
     Mountain mountain;
@@ -49,7 +49,7 @@ public class WaitTimeActivity extends ActionBarActivity {
         tv.setText(mountainName);
 
         mountain = new Mountain(mountainName);
-        l = new ArrayList<Lift>();
+        lifts = new ArrayList<Lift>();
 
         ParseQuery pq = new ParseQuery("Mountain");
         pq.whereEqualTo("name", mountainName);
@@ -76,7 +76,7 @@ public class WaitTimeActivity extends ActionBarActivity {
                                 liftObject.setDuration(duration);
                                 liftObject.setWaitTime(waitTime);
                                 liftObject.setName(lift);
-                                l.add(liftObject);
+                                lifts.add(liftObject);
                                 liftNames.add(liftObject.getName());
                             }
                         });
@@ -121,7 +121,7 @@ public class WaitTimeActivity extends ActionBarActivity {
 
     public void reValidate(){
         mountain = new Mountain(mountainName);
-        mountain.addLifts(l);
+        mountain.addLifts(lifts);
 
         // get lifts and wait times, put into strings to display in list
         String[] times = new String[mountain.getLifts().size()];
@@ -175,7 +175,7 @@ public class WaitTimeActivity extends ActionBarActivity {
         }
         Spinner mySpinner = (Spinner) findViewById(R.id.liftSpinner);
         int i = mySpinner.getSelectedItemPosition();
-        Lift tmp = l.get(0);
+        Lift tmp = lifts.get(0);
         tmp.insertWaitTime(to_add);
         reValidate();
     }

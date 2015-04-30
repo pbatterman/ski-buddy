@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.parse.GetCallback;
@@ -11,17 +12,22 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class ConditionDataStore extends ActionBarActivity {
 
     String slopeName;
+    String currentUserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slope_data);
         slopeName = getIntent().getExtras().getString("slopeName");
+        currentUserName = getIntent().getExtras().getString("username");
+
         final TextView tv = (TextView) findViewById(R.id.slopeName);
         tv.setText(slopeName);
 
@@ -108,5 +114,37 @@ public class ConditionDataStore extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addSlopeToFavorites(View view) {
+        System.out.println("Add to favorites: " + currentUserName);
+
+        ParseQuery favoriteQuery = new ParseQuery("accounts");
+        favoriteQuery.whereEqualTo("username", currentUserName);
+        favoriteQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    System.out.println("null object shitdick");
+                }
+
+                JSONArray jsonArr2 = object.getJSONArray("favoriteSlopes");
+                if (jsonArr2 == null) {
+                    jsonArr2 = new JSONArray();
+                }
+
+                JSONObject newTrail = new JSONObject();
+                try {
+                    newTrail.put("name", slopeName);
+                    jsonArr2.put(newTrail);
+                    object.put("favoriteSlopes", jsonArr2);
+                    System.out.println("arr: " + jsonArr2);
+                    object.saveInBackground();
+
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 }
