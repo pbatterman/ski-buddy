@@ -11,7 +11,7 @@ public class TrailDataStore {
     public static ArrayList<Integer> observations = new ArrayList<Integer>();
     public static ArrayList<Integer> average_condition = new ArrayList<Integer>();
     public static ArrayList<Integer> average_rating = new ArrayList<Integer>();
-    public static String[] conditions = {"Icy", "Powder", "Groomed"};
+    public static String[] conditions = {"Icy","Granular", "Groomed", "Packed Powder", "Powder"};
     public static boolean added_Once = false;
 
 

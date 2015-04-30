@@ -47,6 +47,7 @@ public class MountainConditionActivity extends ActionBarActivity {
 
         final RequestQueue queue = Volley.newRequestQueue(this);
         ParseQuery woiedQuery = new ParseQuery("Mountain");
+
         // need to get mountainName from mainActivity intent
         woiedQuery.whereEqualTo("name", mountainName);
         woiedQuery.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -82,7 +83,7 @@ public class MountainConditionActivity extends ActionBarActivity {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            System.out.println("That didn't work!");
+                            System.out.println("That didn'trails work!");
                         }
                     });
                     // Add the request to the RequestQueue.

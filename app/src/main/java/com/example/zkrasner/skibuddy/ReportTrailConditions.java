@@ -163,10 +163,5 @@ public class ReportTrailConditions extends ActionBarActivity {
             }
         });
 
-
-
-
-
-
     }
 }
