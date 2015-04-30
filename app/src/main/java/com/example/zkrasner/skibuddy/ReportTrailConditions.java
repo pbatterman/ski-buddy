@@ -42,48 +42,48 @@ public class ReportTrailConditions extends ActionBarActivity {
         ParseQuery pq = new ParseQuery("Mountain");
         pq.whereEqualTo("name", mountain);
         pq.getFirstInBackground(new GetCallback<ParseObject>() {
-                                    @Override
-                                    public void done(ParseObject object, ParseException e) {
-                                        JSONArray jsonArr = object.getJSONArray("trails");
-                                        String[] arr = new String[jsonArr.length()];
-                                        for (int i = 0; i < arr.length; i++) {
-                                            try {
-                                                final String trail = jsonArr.getJSONObject(i).getString("name");
-                                                trailNames.add(trail);
-                                                ParseQuery pq = new ParseQuery("trail");
-                                                pq.whereEqualTo("name", trail);
-                                            } catch (JSONException e1) {
-                                                e1.printStackTrace();
-                                            }
-                                        }
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                JSONArray jsonArr = object.getJSONArray("trails");
+                String[] arr = new String[jsonArr.length()];
+                for (int i = 0; i < arr.length; i++) {
+                    try {
+                        final String trail = jsonArr.getJSONObject(i).getString("name");
+                        trailNames.add(trail);
+                        ParseQuery pq = new ParseQuery("trail");
+                        pq.whereEqualTo("name", trail);
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+                }
 
-                                        // display trails from specific mountain
-                                        final Spinner trailSelectedSpinner = (Spinner) findViewById(R.id.trail_select_spinner);
-                                        ArrayAdapter<String> trailNamesAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_item,trailNames);
+                // display trails from specific mountain
+                final Spinner trailSelectedSpinner = (Spinner) findViewById(R.id.trail_select_spinner);
+                ArrayAdapter<String> trailNamesAdapter = new ArrayAdapter(context,android.R.layout.simple_spinner_item,trailNames);
 
 
-                                        // Specify the layout to use when the list of choices appears
-                                        trailNamesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                        // Apply the adapter to the spinner
+                // Specify the layout to use when the list of choices appears
+                trailNamesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                // Apply the adapter to the spinner
 
-                                        System.out.println("trailnames had size " + trailNames);
-                                        trailSelectedSpinner.setAdapter(trailNamesAdapter);
-                                        trailSelectedSpinner.setSelection(0);
+                System.out.println("trailnames had size " + trailNames);
+                trailSelectedSpinner.setAdapter(trailNamesAdapter);
+                trailSelectedSpinner.setSelection(0);
 
-                                        trailSelectedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-                                            @Override
-                                            public void onItemSelected(AdapterView<?> parent, View view,
-                                                                       int position, long id) {
-                                                selectedItemIndex = trailSelectedSpinner.getSelectedItemPosition();
-                                            }
+                trailSelectedSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view,
+                                               int position, long id) {
+                        selectedItemIndex = trailSelectedSpinner.getSelectedItemPosition();
+                    }
 
-                                            @Override
-                                            public void onNothingSelected(AdapterView<?> parent) {
-                                                selectedItemIndex = 0;
-                                            }
-                                        });
-                                    }
-                                });
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        selectedItemIndex = 0;
+                    }
+                });
+            }
+        });
 
 
         conditionSelectionSpinner = (Spinner) findViewById(R.id.condition_select_spinner);
@@ -95,7 +95,7 @@ public class ReportTrailConditions extends ActionBarActivity {
         conditionSelectionSpinner.setAdapter(conditionsAdapter);
 
 
-        NumberPicker np= (NumberPicker) findViewById(R.id.rating_picker);
+        NumberPicker np = (NumberPicker) findViewById(R.id.rating_picker);
         np.setMinValue(1);
         np.setMaxValue(10);
         np.setValue(5);
