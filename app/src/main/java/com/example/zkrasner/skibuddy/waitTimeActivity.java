@@ -184,4 +184,5 @@ public class WaitTimeActivity extends ActionBarActivity {
         Intent i = new Intent(this, MainActivity.class);
         this.startActivity(i);
     }
+
 }
