@@ -120,7 +120,6 @@ public class UserActivity extends ActionBarActivity {
 
     public void removeFriend(View view) {
         final String name = editFriendText.getText().toString();
-        System.out.println("removing friend ");
         JSONArray newJsonFriends = new JSONArray();
         if (name != null) {
             if (friends.contains(name)) {
@@ -143,7 +142,6 @@ public class UserActivity extends ActionBarActivity {
 
     public void addNewFriend(View view) {
         String name = editFriendText.getText().toString();
-        System.out.println("adding friend2");
 
         if (name != null) {
             boolean contains = false;
@@ -173,7 +171,6 @@ public class UserActivity extends ActionBarActivity {
     }
 
     public void updateFriendData(){
-        System.out.println("JSONFRIENDS : " + jsonFriends.toString());
 
         ParseQuery friendQuery = new ParseQuery("accounts");
         friendQuery.whereEqualTo("username", username);
