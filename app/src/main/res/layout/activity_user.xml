@@ -18,9 +18,9 @@
         android:layout_height="wrap_content"
         android:text="My Location"
         android:id="@+id/mapButton"
-        android:layout_marginTop="70dp"
         android:layout_below="@+id/nameText"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/friendText"
@@ -54,10 +54,16 @@
 
     <ListView
         android:layout_width="fill_parent"
-        android:layout_height="400dp"
+        android:layout_height="160dp"
         android:id="@+id/friendList"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/mapButton"
         android:layout_above="@+id/friendText" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="160dp"
+        android:id="@+id/slopeList"
+        android:layout_below="@+id/mapButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

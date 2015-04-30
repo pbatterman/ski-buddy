@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 
 public class SlopeActivity extends ActionBarActivity {
-    String currentSlope;
+    static String currentSlope;
     ListView listView;
 
     // The list of Trail objects
@@ -35,7 +35,7 @@ public class SlopeActivity extends ActionBarActivity {
     ArrayList<String> trailNames;
 
     // A way to save the context when creating GUI objects
-    SlopeActivity context;
+    static SlopeActivity context;
 
     // The Mountain object
     Mountain mountain;
@@ -44,7 +44,7 @@ public class SlopeActivity extends ActionBarActivity {
     String mountainName;
 
     // The current username of the user
-    String currentUserName;
+    static String currentUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,11 +200,11 @@ public class SlopeActivity extends ActionBarActivity {
         return difficultyLevel;
     }
 
-    public void showSlopeData(View view) {
-        Intent i = new Intent(this, ConditionDataStore.class);
+    public static void showSlopeData(View view) {
+        Intent i = new Intent(context, ConditionDataStore.class);
         i.putExtra("slopeName", currentSlope);
         i.putExtra("username", currentUserName);
-        this.startActivity(i);
+        context.startActivity(i);
     }
 
 
