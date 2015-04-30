@@ -14,7 +14,6 @@
         <item>Okemo</item>
         <item>Magic</item>
     </string-array>
-
     <string-array name="conditions_array">
         <item>Icy</item>
         <item>Granular</item>
@@ -22,13 +21,11 @@
         <item>Packed Powder</item>
         <item>Powder</item>
     </string-array>
-
     <string-array name="kill_runs">
         <item>Glades</item>
         <item>Lowell Thomas</item>
         <item>Cliff Run</item>
     </string-array>
-
     <string-array name="lift_array">
         <item>Fast Lift</item>
         <item>Slow Bunny Hill</item>
@@ -40,5 +37,6 @@
     <string name="title_activity_slope_data">SlopeData</string>
     <string name="title_activity_mountain_condition">MountainConditionActivity</string>
     <string name="title_activity_report_trail_conditions">ReportTrailConditions</string>
+    <string name="title_activity_user">UserActivity</string>
 
 </resources>

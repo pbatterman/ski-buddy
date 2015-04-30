@@ -38,6 +38,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     // List containing the wait times
     ArrayList<String> times = new ArrayList<String>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,6 +211,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void showMountainConditions(View view) {
         Intent i = new Intent(this, MountainConditionActivity.class);
         i.putExtra("mountain", mountainName);
+        this.startActivity(i);
+    }
+
+    public void showUserPage(View view) {
+        Intent i = new Intent(this, UserActivity.class);
+        currentUserName = LoginActivity.getCurrentUserName();
+        i.putExtra("username", currentUserName);
         this.startActivity(i);
     }
 
