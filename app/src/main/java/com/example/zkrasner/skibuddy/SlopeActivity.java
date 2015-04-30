@@ -41,7 +41,6 @@ public class SlopeActivity extends ActionBarActivity {
         t = new ArrayList<Trail>();
         l = new ArrayList<Lift>();
         context = this;
-        mountainName = getIntent().getExtras().getString("mountain");
         mountain = new Mountain(mountainName);
 
         currentUserName = getIntent().getExtras().getString("username");
@@ -173,6 +172,7 @@ public class SlopeActivity extends ActionBarActivity {
     public void showSlopeData(View view) {
         Intent i = new Intent(this, ConditionDataStore.class);
         i.putExtra("slopeName", currentSlope);
+        i.putExtra("username", currentUserName);
         this.startActivity(i);
     }
 

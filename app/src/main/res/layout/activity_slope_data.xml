@@ -27,4 +27,12 @@
         android:layout_below="@+id/condition"
         android:id="@+id/difficulty"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addToFavorites"
+        android:text="Add to favorites"
+        android:layout_below="@id/difficulty"
+        android:onClick="addSlopeToFavorites"/>
+
 </RelativeLayout>
