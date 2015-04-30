@@ -45,6 +45,16 @@ import java.util.List;
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
+
+    public static String getCurrentUserName() {
+        return currentUserName;
+    }
+
+    public static void setCurrentUserName(String currentUserName) {
+        LoginActivity.currentUserName = currentUserName;
+    }
+
+    private static String currentUserName;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -132,7 +142,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         accountToAdd.put("password", password);
         accountToAdd.saveInBackground();
 
-
+        currentUserName = email;
+        System.out.println("set username here to " + email);
 
         Context context = getApplicationContext();
         CharSequence text = "Account Succesfully Created!";
@@ -199,6 +210,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                             showProgress(true);
                             mAuthTask = new UserLoginTask(email, password);
                             mAuthTask.execute((Void) null);
+
+//                            currentUserName = email;
                         }
 
                     }

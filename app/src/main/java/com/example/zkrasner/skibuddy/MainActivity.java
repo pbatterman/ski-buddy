@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
     String mountainName;
+    String currentUserName = null;
     ArrayList<Lift> lifts = new ArrayList<Lift>();
     ArrayList<String> liftNames = new ArrayList<String>();
     ArrayList<String> times = new ArrayList<String>();
@@ -187,6 +188,10 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void showSlopes(View view) {
         Intent i = new Intent(this, SlopeActivity.class);
         i.putExtra("mountain", mountainName);
+        currentUserName = LoginActivity.getCurrentUserName();
+        if (currentUserName != null) {
+            i.putExtra("username", currentUserName);
+        }
         this.startActivity(i);
     }
 

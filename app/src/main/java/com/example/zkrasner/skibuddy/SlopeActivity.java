@@ -30,6 +30,7 @@ public class SlopeActivity extends ActionBarActivity {
     SlopeActivity context;
     Mountain mountain;
     String mountainName;
+    String currentUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,14 @@ public class SlopeActivity extends ActionBarActivity {
         context = this;
         mountainName = getIntent().getExtras().getString("mountain");
         mountain = new Mountain(mountainName);
+
+        currentUserName = getIntent().getExtras().getString("username");
+        if (currentUserName != null) {
+            System.out.println("CURRENT USERNAME: " + currentUserName);
+        }
+        else {
+            System.out.println("null username");
+        }
 
         listView = (ListView) findViewById(R.id.list);
 
