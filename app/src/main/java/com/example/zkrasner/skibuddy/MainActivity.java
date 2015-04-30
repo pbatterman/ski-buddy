@@ -27,9 +27,15 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
     String mountainName;
-    String currentUserName = null;
+    String currentUserName;
+
+    // List containing the Lift objects
     ArrayList<Lift> lifts = new ArrayList<Lift>();
+
+    // List contatining the names of the lifts
     ArrayList<String> liftNames = new ArrayList<String>();
+
+    // List containing the wait times
     ArrayList<String> times = new ArrayList<String>();
 
     @Override

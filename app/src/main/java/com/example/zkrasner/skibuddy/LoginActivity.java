@@ -288,8 +288,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
 
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
+                // Show primary email addresses first. Note that there won'trails be
+                // a primary email address if the user hasn'trails specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 

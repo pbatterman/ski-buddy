@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="debug"><source path="/Users/pbatterman/GitHub/ski-buddy/volley/build/intermediates/bundles/debug/assets"/></dataSet><dataSet config="main"><source path="/Users/pbatterman/GitHub/ski-buddy/volley/src/androidTest/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="debug"><source path="/Users/sfreeman2494/AndroidStudioProjects/ski-buddy/volley/build/intermediates/bundles/debug/assets"/></dataSet><dataSet config="main"><source path="/Users/sfreeman2494/AndroidStudioProjects/ski-buddy/volley/src/androidTest/assets"/></dataSet></merger>
