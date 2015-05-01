@@ -139,8 +139,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         // Store values at the time of the login attempt.
         final String email = mEmailView.getText().toString();
         final String password = mPasswordView.getText().toString();
-        System.out.println("email was " + email);
-        System.out.println("pass was  " + password);
+//        System.out.println("email was " + email);
+//        System.out.println("pass was  " + password);
+
+        if (email.length() <= 0 || email == null) {
+            Context context = getApplicationContext();
+            CharSequence text = "Invalid username";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            return;
+        }
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("accounts");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -164,6 +174,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         });
 
         if (isUniqueUser) {
+
             ParseObject accountToAdd = new ParseObject("accounts");
             accountToAdd.put("username", email);
             accountToAdd.put("password", password);
@@ -173,7 +184,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             System.out.println("set username here to " + email);
 
             Context context = getApplicationContext();
-            CharSequence text = "Account Succesfully Created!";
+            CharSequence text = "Account Successfully Created!";
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);
