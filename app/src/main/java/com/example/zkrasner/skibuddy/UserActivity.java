@@ -2,6 +2,9 @@ package com.example.zkrasner.skibuddy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -40,6 +44,7 @@ public class UserActivity extends ActionBarActivity {
     private static boolean userExists;
     private ArrayList<String> friendLocs = new ArrayList<String>();
     private ArrayList<String> friendsList = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -394,6 +399,10 @@ public class UserActivity extends ActionBarActivity {
     }
 
     public void showMap(View view) {
+        if (!loggedIn) {
+            return;
+        }
+
         //TO DO: grab the user's lat and long here to populate the pin
         //TO DO: parse this user's friends and their locations for the pins
         System.out.println("about to show map for " + username);
