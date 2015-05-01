@@ -4,6 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#7ABFF0"
     tools:context="com.example.zkrasner.skibuddy.ReportTrailConditions"
     android:id="@+id/trailConditionReportLayout">
 
@@ -12,23 +13,26 @@
 
 
     <NumberPicker
-        android:layout_width="fill_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/rating_picker"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
+        android:textColor="#FFFFFF"
+        android:background="#AAFFFFFF"
         android:orientation="vertical" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/condition_select_spinner"
-        android:background="@color/accent_material_dark"
+        android:background="#AAFFFFFF"
         android:layout_below="@+id/trail_select_spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp"
         android:minHeight="50dp"
+        android:textColor="#FFFFFF"
         android:minWidth="200dp" />
 
     <Spinner
@@ -38,26 +42,30 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="82dp"
-        android:background="@color/accent_material_light"
+        android:background="#AAFFFFFF"
         android:focusable="false"
         android:minHeight="50dp"
+        android:textColor="#FFFFFF"
         android:minWidth="200dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Submit Rating"
         android:id="@+id/submit_trail_condition_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
+        android:background="#AAFF4C3D"
         android:onClick="onSubmitButtonClick" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Rate Trails"
+        android:text="Rate Slopes"
         android:id="@+id/textViewTitle"
+        android:textColor="#FFFFFF"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -67,6 +75,7 @@
         android:text="Rate Slope"
         android:id="@+id/textView_rating"
         android:layout_centerHorizontal="true"
+        android:textColor="#FFFFFF"
         android:layout_above="@id/rating_picker"/>
 
 
@@ -77,6 +86,17 @@
         android:id="@+id/textView_conditions"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-40dp"
+        android:textColor="#FFFFFF"
         android:layout_above="@id/condition_select_spinner"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Slope Name"
+        android:id="@+id/textView_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-80dp"
+        android:textColor="#FFFFFF"
+        android:layout_above="@id/trail_select_spinner"/>
 
 </RelativeLayout>
