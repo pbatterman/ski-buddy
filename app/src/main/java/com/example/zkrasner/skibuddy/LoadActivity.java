@@ -30,13 +30,14 @@ public class LoadActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
 
+        // Initialize connection to Parse
         Parse.initialize(this, "q3TW5WjUYJCEHqn4J2RVb8sscM8ZCIWZNQt7acL1", "umavEy2ekBXFPCfy7CGKQp9h3sOOf9AOClKThJri");
 
 
         List<ParseObject> ob = null;
-
         mountains = new ArrayList<String>();
 
+        // Parse query to get mountain names
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Mountain");
         query.orderByAscending("createdAt");
         try {
@@ -51,6 +52,7 @@ public class LoadActivity extends ActionBarActivity {
         }
 
 
+        // Start up the MainActivity
         Intent i = new Intent(this, MainActivity.class);
         i.putExtra("mountains", mountains);
         this.startActivity(i);

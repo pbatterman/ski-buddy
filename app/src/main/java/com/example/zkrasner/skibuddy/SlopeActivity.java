@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -61,6 +62,9 @@ public class SlopeActivity extends ActionBarActivity {
         // Set up the mountain object
         mountainName = getIntent().getExtras().getString("mountain");
         mountain = new Mountain(mountainName);
+
+        TextView mountainLabel = (TextView) findViewById(R.id.slope_mountain_name);
+        mountainLabel.setText(mountainName);
 
         currentUserName = getIntent().getExtras().getString("username");
         if (currentUserName != null) {

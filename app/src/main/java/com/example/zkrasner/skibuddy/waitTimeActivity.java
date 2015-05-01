@@ -6,49 +6,37 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
+
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import android.content.Context;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 
 
 public class WaitTimeActivity extends ActionBarActivity {
-    ListView listView;
-    ArrayList<Lift> lifts;
     String mountainName;
-    String[] startTimes;
-    Mountain mountain;
-    Context contextview;
+    Context contextView;
     WaitTimeActivity context;
 
     ArrayList<String> liftNames = new ArrayList<String>();
-    String[] out;
     int count;
     ArrayList<String> toFill;
     ArrayList<Double> toFillHelper;
-    int selectedItemIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        contextview = getApplicationContext();
+        contextView = getApplicationContext();
         System.out.println("was created");
         context = this;
         super.onCreate(savedInstanceState);
@@ -64,7 +52,7 @@ public class WaitTimeActivity extends ActionBarActivity {
         spinner.setAdapter(adapter);
 
 
-        reValidate();
+        revalidate();
 
         final Button button = (Button) findViewById(R.id.refreshButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +64,7 @@ public class WaitTimeActivity extends ActionBarActivity {
     }
 
 
-    public void reValidate(){
+    public void revalidate(){
 
 
         toFill = new ArrayList<String>();
@@ -140,7 +128,7 @@ public class WaitTimeActivity extends ActionBarActivity {
 
 
 
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(contextview,
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(contextView,
                                     R.layout.listviewlayout, toFill);
                             ListView lv = (ListView) findViewById(R.id.list);
                             lv.setAdapter(adapter);
@@ -161,11 +149,6 @@ public class WaitTimeActivity extends ActionBarActivity {
 
 
     }
-
-    public void addToArrayList(String s){
-        toFill.add(s);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -191,7 +174,7 @@ public class WaitTimeActivity extends ActionBarActivity {
 
 
     public void refresh(){
-        reValidate();
+        revalidate();
     }
 
     public void onSubmitButtonSelected(View view) {
