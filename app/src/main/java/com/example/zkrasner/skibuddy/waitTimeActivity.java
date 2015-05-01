@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -89,7 +91,10 @@ public class WaitTimeActivity extends ActionBarActivity {
                 @Override
                 public void done(ParseObject object, ParseException e) {
                     if (e == null) {
-                        final String a = ( (String) (object.get("name") + ": " + object.get("waitTime")));
+                        Double wt = object.getDouble("waitTime");
+                        DecimalFormat df = new DecimalFormat("#.##");
+                        String shortWt = df.format(wt);
+                        final String a = ( (String) (object.get("name") + ": " + shortWt + " min"));
                         toFill.add(a);
                         toFillHelper.add(object.getDouble("waitTime"));
 

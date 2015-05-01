@@ -4,6 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#5D697A"
     tools:context="com.example.zkrasner.skibuddy.WaitTimeActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,13 +18,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/liftSpinner"
             android:paddingBottom="10dp"
+            android:background="#AAFFFFFF"
             />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/liftSpinner"
-
+            android:background="#DDFFFFFF"
+            android:padding="10dp"
             android:inputType="number"
             android:ems="10"
             android:id="@+id/numberTextBox" />
@@ -37,8 +40,8 @@
             android:layout_gravity="right" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="93dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:text="Submit"
             android:id="@+id/button"
             android:onClick="onSubmitButtonSelected"
