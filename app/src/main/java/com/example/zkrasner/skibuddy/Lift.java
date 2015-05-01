@@ -8,19 +8,14 @@ public class Lift {
     private double waitTime;
     private double duration;
     private int capacity;
-    private WeightedTimeAverage timeAverage;
 
     public Lift(){
-        timeAverage = new WeightedTimeAverage();
+
     }
 
 
     public void setCapacity(int capacity) {
       this.capacity = capacity;
-    }
-
-    public void insertWaitTime(int a) {
-        timeAverage.inputMeasurement(a);
     }
 
     public void setName(String name) {
@@ -38,10 +33,6 @@ public class Lift {
 
     public String getName() {
         return name;
-    }
-
-    public double getWaitTime() {
-        return timeAverage.calculateMovingAverage();
     }
 
     public double getDuration() {
