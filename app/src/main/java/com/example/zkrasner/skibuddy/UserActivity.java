@@ -58,7 +58,7 @@ public class UserActivity extends ActionBarActivity {
         TextView userHeader = (TextView) findViewById(R.id.nameText);
         if (username == null) {
             loggedIn = false;
-            userHeader.setText("You have not created an account");
+            userHeader.setText("Please sign in");
             return;
         }
         else {
