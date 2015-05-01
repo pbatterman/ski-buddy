@@ -217,6 +217,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         currentUserName = LoginActivity.getCurrentUserName();
         i.putExtra("username", currentUserName);
         this.startActivity(i);
+    }
+
     public static ArrayList<Lift> getLifts() {
         return lifts;
     }
