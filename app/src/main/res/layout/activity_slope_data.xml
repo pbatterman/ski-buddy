@@ -9,7 +9,7 @@
     android:id="@+id/fullLayout"
     android:gravity="center_horizontal"
 
-    tools:context="com.example.zkrasner.skibuddy.ConditionDataStore">
+    tools:context="com.example.zkrasner.skibuddy.TrailConditionActivity">
 
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"

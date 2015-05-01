@@ -113,13 +113,6 @@ public class SlopeActivity extends ActionBarActivity {
                     arr[i] = trailNames.get(i);
                 }
 
-                if (!TrailDataStore.added_Once) {
-                    for (int i = 0; i < trailNames.size(); i++) {
-                        TrailDataStore.insertTrail(trailNames.get(i));
-                    }
-                    TrailDataStore.added_Once = true;
-                }
-
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
                         android.R.layout.simple_list_item_1, android.R.id.text1, arr);
 
@@ -201,7 +194,7 @@ public class SlopeActivity extends ActionBarActivity {
     }
 
     public static void showSlopeData(View view) {
-        Intent i = new Intent(context, ConditionDataStore.class);
+        Intent i = new Intent(context, TrailConditionActivity.class);
         i.putExtra("slopeName", currentSlope);
         i.putExtra("username", currentUserName);
         context.startActivity(i);

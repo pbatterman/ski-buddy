@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -125,7 +124,7 @@ public class UserActivity extends ActionBarActivity {
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             if (!noFavorites) {
                                 String currentSlope = (String) adapterView.getItemAtPosition(i);
-                                Intent intent = new Intent(context, ConditionDataStore.class);
+                                Intent intent = new Intent(context, TrailConditionActivity.class);
                                 intent.putExtra("slopeName", currentSlope);
                                 intent.putExtra("username", username);
                                 context.startActivity(intent);
@@ -331,7 +330,7 @@ public class UserActivity extends ActionBarActivity {
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             if (!noFavorites) {
                                 String currentSlope = (String) adapterView.getItemAtPosition(i);
-                                Intent intent = new Intent(context, ConditionDataStore.class);
+                                Intent intent = new Intent(context, TrailConditionActivity.class);
                                 intent.putExtra("slopeName", currentSlope);
                                 intent.putExtra("username", username);
                                 context.startActivity(intent);

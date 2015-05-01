@@ -19,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class ConditionDataStore extends ActionBarActivity {
+public class TrailConditionActivity extends ActionBarActivity {
 
     String slopeName;
     String currentUserName;
@@ -81,9 +81,6 @@ public class ConditionDataStore extends ActionBarActivity {
                 Trail t = new Trail(condition, ratingString, difficultyLevel);
                 t.setName(slopeName);
 
-                // Find the running average rating
-                String updatedRating = TrailDataStore.returnRating(slopeName);
-                String updatedCondition = TrailDataStore.returnCondition(slopeName);
 
                 // Set the proper values
                 TextView ratingText = (TextView) findViewById(R.id.rating);
