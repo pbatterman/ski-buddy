@@ -127,7 +127,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 
     public void register(){
-        isUniqueUser = true;
+//        isUniqueUser = true;
 
         if (mAuthTask != null) {
             return;
@@ -156,48 +156,50 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
+                    isUniqueUser = true;
                     for(ParseObject p : objects) {
                         String username = (String) p.get("username");
-                        if (username.equals(email)) {
+                        if (username.equalsIgnoreCase(email)) {
                             isUniqueUser = false;
-                            System.out.println("not a unique username, denied.");
+                            Context context = getApplicationContext();
+                            CharSequence text = "Username already exists";
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
                             return;
                         }
                     }
-                    if (!isExistingUser) {
-                        return;
+                    if (isUniqueUser) {
+
+                        ParseObject accountToAdd = new ParseObject("accounts");
+                        accountToAdd.put("username", email);
+                        accountToAdd.put("password", password);
+                        accountToAdd.saveInBackground();
+
+                        currentUserName = email;
+                        System.out.println("set username here to " + email);
+
+                        Context context = getApplicationContext();
+                        CharSequence text = "Account Successfully Created!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                    else {
+                        Context context = getApplicationContext();
+                        CharSequence text = "Username already exists!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
                     }
                 } else{
                     return;
                 }
             }
         });
-
-        if (isUniqueUser) {
-
-            ParseObject accountToAdd = new ParseObject("accounts");
-            accountToAdd.put("username", email);
-            accountToAdd.put("password", password);
-            accountToAdd.saveInBackground();
-
-            currentUserName = email;
-            System.out.println("set username here to " + email);
-
-            Context context = getApplicationContext();
-            CharSequence text = "Account Successfully Created!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        }
-        else {
-            Context context = getApplicationContext();
-            CharSequence text = "Username already exists!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        }
     }
 
     /**
