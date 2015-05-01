@@ -5,11 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/SkiBuddy.iml" filepath="$PROJECT_DIR$/SkiBuddy.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ski-buddy.iml" filepath="$PROJECT_DIR$/ski-buddy.iml" />
-<<<<<<< Updated upstream
-      <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
-      <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
-=======
->>>>>>> Stashed changes
     </modules>
   </component>
 </project>
