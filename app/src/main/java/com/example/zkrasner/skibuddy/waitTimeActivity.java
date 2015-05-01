@@ -41,7 +41,7 @@ public class WaitTimeActivity extends ActionBarActivity {
     String[] out;
     int count;
     ArrayList<String> toFill;
-    ArrayList<Integer> toFillHelper;
+    ArrayList<Double> toFillHelper;
     int selectedItemIndex = 0;
 
     @Override
@@ -78,7 +78,7 @@ public class WaitTimeActivity extends ActionBarActivity {
 
 
         toFill = new ArrayList<String>();
-        toFillHelper = new ArrayList<Integer>();
+        toFillHelper = new ArrayList<Double>();
         final int last = liftNames.size() - 1;
         count = 0;
         for(String l : liftNames) {
@@ -91,7 +91,7 @@ public class WaitTimeActivity extends ActionBarActivity {
                     if (e == null) {
                         final String a = ( (String) (object.get("name") + ": " + object.get("waitTime")));
                         toFill.add(a);
-                        toFillHelper.add((Integer)object.get("waitTime"));
+                        toFillHelper.add(object.getDouble("waitTime"));
 
                         System.out.println(toFill.size() + " " + toFillHelper.size());
 
@@ -121,7 +121,7 @@ public class WaitTimeActivity extends ActionBarActivity {
                                     toFill.set(i,toFill.get(index));
                                     toFill.set(index,tmp);
 
-                                    int curr = toFillHelper.get(i);
+                                    Double curr = toFillHelper.get(i);
 
                                     toFillHelper.set(i,toFillHelper.get(index));
                                     toFillHelper.set(index,curr);
@@ -214,7 +214,11 @@ public class WaitTimeActivity extends ActionBarActivity {
             @Override
             public void done(ParseObject object, ParseException e) {
                 if(e == null){
-                    object.put("waitTime",add);
+                    Integer numEntries = object.getInt("numEntries");
+                    Double existingTime = object.getDouble("waitTime");
+                    Double newTime = ((existingTime * numEntries) + add) / (numEntries + 1);
+                    object.put("waitTime", newTime);
+                    object.put("numEntries", numEntries + 1);
                     object.saveInBackground();
 
                 }
