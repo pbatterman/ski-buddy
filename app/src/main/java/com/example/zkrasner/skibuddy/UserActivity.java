@@ -1,5 +1,6 @@
 package com.example.zkrasner.skibuddy;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,7 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -35,6 +38,7 @@ public class UserActivity extends ActionBarActivity {
     private JSONArray jsonFriends;
     private static boolean noFavorites;
     private static boolean loggedIn;
+    private static boolean userExists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +193,30 @@ public class UserActivity extends ActionBarActivity {
         }
         String name = editFriendText.getText().toString();
 
+//        try {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("accounts");
+        query.whereEqualTo("username", name);
+        try {
+            ParseObject object = query.getFirst();
+            userExists = true;
+
+        }
+        // don't find username
+        catch (Exception e) {
+            userExists = false;
+        }
+
+//        System.out.println("found user: " + userExists);
+        if (!userExists) {
+            Context context = getApplicationContext();
+            CharSequence text = "User doesn't exist!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            return;
+        }
+
         if (name != null && name.length() > 0) {
             boolean contains = false;
             for (int i = 0; i < jsonFriends.length(); i++) {
@@ -209,6 +237,12 @@ public class UserActivity extends ActionBarActivity {
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
+                Context context = getApplicationContext();
+                CharSequence text = "Added friend " + name;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
                 updateFriendData();
             }
 
@@ -251,12 +285,6 @@ public class UserActivity extends ActionBarActivity {
 
                 // Assign adapter to ListView
                 friendListView.setAdapter(adapter);
-//                friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                        currentSlope = (String) adapterView.getItemAtPosition(i);
-//                        showSlopeData(view);
-//                    }
 
             }
         });
