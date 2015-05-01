@@ -18,6 +18,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 
 public class TrailConditionActivity extends ActionBarActivity {
 
@@ -38,8 +40,10 @@ public class TrailConditionActivity extends ActionBarActivity {
         pq.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                double rating = object.getDouble("rating");
-                String ratingString = "Rating: " + rating;
+                Double rating = object.getDouble("rating");
+                DecimalFormat df = new DecimalFormat("#.##");
+                String shortRating = df.format(rating);
+                String ratingString = "Rating: " + shortRating;
                 int difficulty = object.getInt("difficulty");
 
                 // Use integer to find the right String

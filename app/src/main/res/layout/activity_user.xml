@@ -4,24 +4,43 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#5D697A"
     tools:context="com.example.zkrasner.skibuddy.UserActivity">
 
-    <TextView
-        android:id="@+id/nameText"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/linearLayout0"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-    />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:weightSum="2">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Location"
-        android:id="@+id/mapButton"
-        android:onClick="showMap"
-        android:layout_below="@+id/nameText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="10pt"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_weight="1"
+
+            />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="My Location"
+            android:background="#65C99F"
+            android:id="@+id/mapButton"
+            android:textColor="#FFFFFF"
+            android:onClick="showMap"
+            android:layout_weight="1"
+            />
+
+        </LinearLayout>
+
 
     <EditText
         android:id="@+id/friendText"
@@ -30,7 +49,10 @@
         android:maxLines="1" android:singleLine="true"
         android:layout_below="@+id/friendList"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:padding="5dp"
+        android:background="#DDFFFFFF"
+        />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -39,24 +61,31 @@
         android:layout_below="@+id/friendText"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:background="#AAFFFFFF"
         android:weightSum="2">
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Add Friend"
         android:id="@+id/addFriend"
         android:onClick="addNewFriend"
+        android:background="#AAFFCC33"
+        android:textColor="#FFFFFF"
+        android:layout_marginRight="5dp"
         android:layout_weight="1"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Remove Friend"
         android:id="@+id/deleteFriend"
         android:onClick="removeFriend"
+        android:background="#AAFF4C3D"
+        android:textColor="#FFFFFF"
         android:layout_weight="1"/>
 
     </LinearLayout>
@@ -66,15 +95,18 @@
         android:layout_height="160dp"
         android:id="@+id/friendList"
         android:layout_below="@+id/slopeList"
+        android:background="#AAFFFFFF"
         android:layout_marginTop="10dp"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="160dp"
         android:id="@+id/slopeList"
-        android:layout_below="@+id/mapButton"
+        android:layout_below="@+id/linearLayout0"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="#AAFFFFFF"
+        />
 
 
 </RelativeLayout>
