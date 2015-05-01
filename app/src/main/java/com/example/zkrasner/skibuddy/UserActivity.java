@@ -189,7 +189,7 @@ public class UserActivity extends ActionBarActivity {
         }
         String name = editFriendText.getText().toString();
 
-        if (name != null) {
+        if (name != null && name.length() > 0) {
             boolean contains = false;
             for (int i = 0; i < jsonFriends.length(); i++) {
                 try {
