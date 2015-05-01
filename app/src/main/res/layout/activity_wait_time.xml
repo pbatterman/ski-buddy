@@ -19,6 +19,7 @@
             android:id="@+id/liftSpinner"
             android:paddingBottom="10dp"
             android:background="#AAFFFFFF"
+            android:fontFamily="sans-serif-condensed"
             />
 
         <EditText
@@ -28,6 +29,7 @@
             android:background="#DDFFFFFF"
             android:padding="10dp"
             android:inputType="number"
+            android:fontFamily="sans-serif-condensed"
             android:ems="10"
             android:id="@+id/numberTextBox" />
 
@@ -37,6 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Refresh"
             android:id="@+id/refreshButton"
+            android:fontFamily="sans-serif-condensed"
             android:layout_gravity="right" />
 
         <Button
@@ -45,6 +48,7 @@
             android:text="Submit"
             android:id="@+id/button"
             android:onClick="onSubmitButtonSelected"
+            android:fontFamily="sans-serif-condensed"
             android:layout_gravity="center_horizontal" />
 
         <ListView
@@ -56,7 +60,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100px"
-            android:id="@+id/mountainName"/>
+            android:id="@+id/mountainName"
+            android:fontFamily="sans-serif-condensed"
+            />
 
 
     </LinearLayout>
