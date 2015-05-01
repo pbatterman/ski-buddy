@@ -39,6 +39,6 @@
     <string name="title_activity_report_trail_conditions">Rate Slopes</string>
     <string name="title_activity_user">Profile</string>
     <string name="title_activity_map_view">Map</string>
-    <string name="title_activity_load">Loading...</string>
+    <string name="title_activity_load">SkiBuddy</string>
 
 </resources>

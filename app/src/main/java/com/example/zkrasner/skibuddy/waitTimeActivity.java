@@ -203,7 +203,11 @@ public class WaitTimeActivity extends ActionBarActivity {
         } else {
             intermediate = e.getText().toString();
 
-            to_add = Integer.parseInt(intermediate);
+            try {
+                to_add = Integer.parseInt(intermediate);
+            }catch (Exception e1){
+                return;
+            }
         }
         Spinner mySpinner = (Spinner) findViewById(R.id.liftSpinner);
 
