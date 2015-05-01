@@ -38,6 +38,8 @@ public class UserActivity extends ActionBarActivity {
     private static boolean noFavorites;
     private static boolean loggedIn;
     private static boolean userExists;
+    private ArrayList<String> friendLocs = new ArrayList<String>();
+    private ArrayList<String> friendsList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +136,53 @@ public class UserActivity extends ActionBarActivity {
                 }
             }
         });
+
+        // prep the parse data for the map
+        try {
+            ParseQuery mapfriendQuery = new ParseQuery("accounts");
+            mapfriendQuery.whereEqualTo("username", username);
+            mapfriendQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, ParseException e) {
+                    JSONArray jsonArr = object.getJSONArray("friends");
+                    System.out.println(jsonArr.toString());
+                    if (jsonArr == null) {
+                        jsonArr = new JSONArray();
+                    }
+                    for (int i = 0; i < jsonArr.length(); i++) {
+                        try {
+                            final String friend = jsonArr.getJSONObject(i).getString("name");
+                            System.out.println(i + " " + friend);
+                            friendsList.add(friend);
+                            ParseQuery friendLocationQuery = new ParseQuery("accounts");
+                            friendLocationQuery.whereEqualTo("username", friend);
+                            friendLocationQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+                                @Override
+                                public void done(ParseObject object, ParseException e) {
+                                    if (object != null) {
+                                        Double lat = object.getDouble("Lat");
+                                        Double lng = object.getDouble("Lng");
+                                        if (lat == null || lng == null) {
+                                            lat = 0.0;
+                                            lng = 0.0;
+                                        }
+                                        friendLocs.add(friend + ':' + lat + ':' + lng);
+                                    } else {
+                                        friendLocs.add(friend + ':' + 0 + ':' + 0);
+                                    }
+                                    System.out.println("Friendlocs is now size: " + friendLocs.size());
+                                }
+                            });
+                        } catch (JSONException e1) {
+                            System.out.println("failed while getting lat and long");
+                        }
+                    }
+                    System.out.println("Completed populating friendlocs: " + friendLocs.size());
+                }
+            });
+        } catch (Exception e) {
+            System.out.println("failed while getting the friends list");
+        }
     }
 
 
@@ -340,6 +389,22 @@ public class UserActivity extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    public void showMap(View view) {
+        //TO DO: grab the user's lat and long here to populate the pin
+        //TO DO: parse this user's friends and their locations for the pins
+        System.out.println("about to show map for " + username);
+
+        System.out.println("in show map: " + friendLocs.size());
+        for (String s: friendLocs) {
+            System.out.println("m " + s);
+        }
+
+        Intent i = new Intent(this, MapActivity.class);
+        i.putExtra("username", username);
+        i.putExtra("friendlocations", friendLocs.toArray(new String[friendLocs.size()]));
+        this.startActivity(i);
     }
 
     @Override

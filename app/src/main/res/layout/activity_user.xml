@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:text="My Location"
         android:id="@+id/mapButton"
+        android:onClick="showMap"
         android:layout_below="@+id/nameText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
