@@ -66,6 +66,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private static boolean isUniqueUser;
+    private static boolean isExistingUser;
+
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -124,6 +127,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 
     public void register(){
+        isUniqueUser = true;
+
         if (mAuthTask != null) {
             return;
         }
@@ -137,20 +142,51 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         System.out.println("email was " + email);
         System.out.println("pass was  " + password);
 
-        ParseObject accountToAdd = new ParseObject("accounts");
-        accountToAdd.put("username", email);
-        accountToAdd.put("password", password);
-        accountToAdd.saveInBackground();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("accounts");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    for(ParseObject p : objects) {
+                        String username = (String) p.get("username");
+                        if (username.equals(email)) {
+                            isUniqueUser = false;
+                            System.out.println("not a unique username, denied.");
+                            return;
+                        }
+                    }
+                    if (!isExistingUser) {
+                        return;
+                    }
+                } else{
+                    return;
+                }
+            }
+        });
 
-        currentUserName = email;
-        System.out.println("set username here to " + email);
+        if (isUniqueUser) {
+            ParseObject accountToAdd = new ParseObject("accounts");
+            accountToAdd.put("username", email);
+            accountToAdd.put("password", password);
+            accountToAdd.saveInBackground();
 
-        Context context = getApplicationContext();
-        CharSequence text = "Account Succesfully Created!";
-        int duration = Toast.LENGTH_SHORT;
+            currentUserName = email;
+            System.out.println("set username here to " + email);
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+            Context context = getApplicationContext();
+            CharSequence text = "Account Succesfully Created!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+        else {
+            Context context = getApplicationContext();
+            CharSequence text = "Username already exists!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
     }
 
     /**
@@ -196,17 +232,30 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("accounts");
+        isExistingUser = false;
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
                     System.out.println("retrieved " + objects.size() + " objects");
 
+                    for(ParseObject p : objects) {
+                        String username = (String) p.get("username");
+                        if (username.equals(email)) {
+                            isExistingUser = true;
+                        }
+                    }
+                    if (!isExistingUser) {
+                        Context context = getApplicationContext();
+                        CharSequence text = "Username doesn't exist!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        return;
+                    }
                     for(ParseObject p : objects){
                         String pass = (String) p.get("password");
                         if(pass.equals(password)) {
-                            System.out.println("SUCCESSFUL LOGIN");
-
-
                             showProgress(true);
                             mAuthTask = new UserLoginTask(email, password);
                             mAuthTask.execute((Void) null);
