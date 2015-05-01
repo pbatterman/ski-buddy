@@ -68,13 +68,13 @@ public class TrailConditionActivity extends ActionBarActivity {
                 // Use integer to find the right String
                 if (conditionRating == 0) {
                     condition = "Icy";
-                } else if (difficulty == 1) {
+                } else if (conditionRating == 1) {
                     condition = "Granular";
-                } else if (difficulty == 2) {
+                } else if (conditionRating == 2) {
                     condition = "Groomed";
-                } else if (difficulty == 3) {
+                } else if (conditionRating == 3) {
                     condition = "Packed Powder";
-                } else if (difficulty == 4) {
+                } else if (conditionRating == 4) {
                     condition = "Powder";
                 }
 
