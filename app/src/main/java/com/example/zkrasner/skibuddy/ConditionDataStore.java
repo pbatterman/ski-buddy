@@ -1,10 +1,12 @@
 package com.example.zkrasner.skibuddy;
 
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.parse.GetCallback;
@@ -27,10 +29,9 @@ public class ConditionDataStore extends ActionBarActivity {
         setContentView(R.layout.activity_slope_data);
         slopeName = getIntent().getExtras().getString("slopeName");
         currentUserName = getIntent().getExtras().getString("username");
-
+        final RelativeLayout background = (RelativeLayout) findViewById(R.id.fullLayout);
         final TextView tv = (TextView) findViewById(R.id.slopeName);
         tv.setText(slopeName);
-
         // Find the proper trail from Parse and create a new trail object
         ParseQuery pq = new ParseQuery("trail");
         pq.whereEqualTo("name", slopeName);
@@ -38,21 +39,27 @@ public class ConditionDataStore extends ActionBarActivity {
             @Override
             public void done(ParseObject object, ParseException e) {
                 int rating = object.getInt("rating");
-                String ratingString = "" + rating;
+                String ratingString = "Rating: " + rating;
                 int difficulty = object.getInt("difficulty");
 
                 // Use integer to find the right String
                 String difficultyLevel = "";
                 if (difficulty == 1) {
                     difficultyLevel = "Bunny Slope";
+                    background.setBackgroundColor(Color.parseColor("#EBF0A1"));
                 } else if (difficulty == 2) {
                     difficultyLevel = "Green Circle";
+                    background.setBackgroundColor(Color.parseColor("#7BF0B4"));
                 } else if (difficulty == 3) {
                     difficultyLevel = "Blue Square";
+                    background.setBackgroundColor(Color.parseColor("#4EA2F0"));
                 } else if (difficulty == 4) {
                     difficultyLevel = "Black Diamond";
+                    background.setBackgroundColor(Color.parseColor("#4A545C"));
                 } else if (difficulty == 5) {
                     difficultyLevel = "Double Black Diamond";
+                    background.setBackgroundColor(Color.parseColor("#000000"));
+
                 }
 
                 int conditionRating = object.getInt("condition");
@@ -82,7 +89,7 @@ public class ConditionDataStore extends ActionBarActivity {
                 TextView ratingText = (TextView) findViewById(R.id.rating);
                 ratingText.setText(ratingString);
                 TextView conditionText = (TextView) findViewById(R.id.condition);
-                conditionText.setText(condition);
+                conditionText.setText("Conditions: " + condition);
                 TextView difficultyText = (TextView) findViewById(R.id.difficulty);
 
                 difficultyText.setText(t.getDifficulty());
@@ -117,20 +124,33 @@ public class ConditionDataStore extends ActionBarActivity {
     }
 
     public void addSlopeToFavorites(View view) {
-        System.out.println("Add to favorites: " + currentUserName);
-
         ParseQuery favoriteQuery = new ParseQuery("accounts");
         favoriteQuery.whereEqualTo("username", currentUserName);
         favoriteQuery.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
-                    System.out.println("null object shitdick");
+                    System.out.println("null object");
+                    return;
                 }
+
+
 
                 JSONArray jsonArr2 = object.getJSONArray("favoriteSlopes");
                 if (jsonArr2 == null) {
                     jsonArr2 = new JSONArray();
+                }
+                boolean contains = false;
+                for (int i = 0; i < jsonArr2.length(); i++) {
+                    try {
+                        if (jsonArr2.getJSONObject(i).getString("name").equalsIgnoreCase(slopeName)) {
+                            contains = true;
+                            return;
+                        }
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+
                 }
 
                 JSONObject newTrail = new JSONObject();
@@ -144,6 +164,38 @@ public class ConditionDataStore extends ActionBarActivity {
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
+            }
+        });
+    }
+    public void removeSlopeFromFavorites(View view) {
+        System.out.println("remove from favorites : " + slopeName);
+        ParseQuery favoriteQuery = new ParseQuery("accounts");
+        favoriteQuery.whereEqualTo("username", currentUserName);
+        favoriteQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    System.out.println("null object");
+                    return;
+                }
+                JSONArray slopeArr = object.getJSONArray("favoriteSlopes");
+
+                JSONArray newSlopesArr = new JSONArray();
+                if (object != null) {
+                    for (int i = 0; i < slopeArr.length(); i++) {
+                        try {
+                            if (!slopeArr.getJSONObject(i).getString("name").equalsIgnoreCase(slopeName)) {
+                                newSlopesArr.put(slopeArr.getJSONObject(i));
+                            }
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+
+                    }
+//                    slopeArr = newSlopesArr;
+                }
+                object.put("favoriteSlopes", newSlopesArr);
+                object.saveInBackground();
             }
         });
     }

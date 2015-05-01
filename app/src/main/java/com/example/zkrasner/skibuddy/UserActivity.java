@@ -33,6 +33,7 @@ public class UserActivity extends ActionBarActivity {
     static UserActivity context;
     private EditText editFriendText;
     private JSONArray jsonFriends;
+    private static boolean noFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class UserActivity extends ActionBarActivity {
         setContentView(R.layout.activity_user);
 
         friends = new ArrayList<String>();
-
+        noFavorites = false;
         editFriendText = (EditText) findViewById(R.id.friendText);
         username = getIntent().getExtras().getString("username");
         TextView userHeader = (TextView) findViewById(R.id.nameText);
@@ -101,6 +102,7 @@ public class UserActivity extends ActionBarActivity {
                     }
                 }
                 if (slopeArr.length == 0) {
+                    noFavorites = true;;
                     slopeArr = new String[1];
                     slopeArr[0] = "No favorite slopes";
                 }
@@ -110,17 +112,20 @@ public class UserActivity extends ActionBarActivity {
                 // Assign adapter to ListView
                 slopeListView.setAdapter(slopeAdapter);
 
-                slopeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        String currentSlope = (String) adapterView.getItemAtPosition(i);
-                        Intent intent = new Intent(context, ConditionDataStore.class);
-                        intent.putExtra("slopeName", currentSlope);
-                        intent.putExtra("username", username);
-                        context.startActivity(intent);
-                    }
-                });
-
+                if (!noFavorites) {
+                    slopeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            if (!noFavorites) {
+                                String currentSlope = (String) adapterView.getItemAtPosition(i);
+                                Intent intent = new Intent(context, ConditionDataStore.class);
+                                intent.putExtra("slopeName", currentSlope);
+                                intent.putExtra("username", username);
+                                context.startActivity(intent);
+                            }
+                        }
+                    });
+                }
             }
         });
     }
@@ -246,7 +251,7 @@ public class UserActivity extends ActionBarActivity {
         });
     }
 
-    public static void updateFavoriteSlopData() {
+    public static void updateFavoriteSlopeData() {
         System.out.println("on resume");
 
         ParseQuery slopeQuery = new ParseQuery("accounts");
@@ -267,7 +272,10 @@ public class UserActivity extends ActionBarActivity {
                         e1.printStackTrace();
                     }
                 }
+                noFavorites = false;
                 if (slopeArr.length == 0) {
+                    System.out.println("no favorites");
+                    noFavorites = true;
                     slopeArr = new String[1];
                     slopeArr[0] = "No favorite slopes";
                 }
@@ -276,25 +284,28 @@ public class UserActivity extends ActionBarActivity {
 
                 // Assign adapter to ListView
                 slopeListView.setAdapter(slopeAdapter);
-
-                slopeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        String currentSlope = (String) adapterView.getItemAtPosition(i);
-                        Intent intent = new Intent(context, ConditionDataStore.class);
-                        intent.putExtra("slopeName", currentSlope);
-                        intent.putExtra("username", username);
-                        context.startActivity(intent);
-                    }
-                });
-
+                if (!noFavorites) {
+                    slopeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            if (!noFavorites) {
+                                String currentSlope = (String) adapterView.getItemAtPosition(i);
+                                Intent intent = new Intent(context, ConditionDataStore.class);
+                                intent.putExtra("slopeName", currentSlope);
+                                intent.putExtra("username", username);
+                                context.startActivity(intent);
+                            }
+                        }
+                    });
+                }
             }
         });
     }
 
-
+    @Override
     protected void onRestart(){
-        updateFavoriteSlopData();
+        super.onRestart();
+        updateFavoriteSlopeData();
     }
 }
 

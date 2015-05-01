@@ -39,8 +39,8 @@
         android:id="@+id/addFriend"
         android:onClick="addNewFriend"
         android:layout_below="@+id/friendText"
-        android:layout_toLeftOf="@+id/mapButton"
-        android:layout_toStartOf="@+id/mapButton" />
+        android:layout_toStartOf="@+id/deleteFriend"
+        android:layout_toLeftOf="@+id/deleteFriend" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
