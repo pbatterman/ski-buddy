@@ -34,6 +34,7 @@ public class UserActivity extends ActionBarActivity {
     private EditText editFriendText;
     private JSONArray jsonFriends;
     private static boolean noFavorites;
+    private static boolean loggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +47,13 @@ public class UserActivity extends ActionBarActivity {
         username = getIntent().getExtras().getString("username");
         TextView userHeader = (TextView) findViewById(R.id.nameText);
         if (username == null) {
+            loggedIn = false;
             userHeader.setText("You have not created an account");
             return;
         }
         else {
             userHeader.setText(username);
+            loggedIn = true;
         }
         context = this;
         friendListView = (ListView) findViewById(R.id.friendList);
@@ -156,6 +159,9 @@ public class UserActivity extends ActionBarActivity {
     }
 
     public void removeFriend(View view) {
+        if (!loggedIn) {
+            return;
+        }
         final String name = editFriendText.getText().toString();
         JSONArray newJsonFriends = new JSONArray();
         if (name != null) {
@@ -178,6 +184,9 @@ public class UserActivity extends ActionBarActivity {
     }
 
     public void addNewFriend(View view) {
+        if (!loggedIn) {
+            return;
+        }
         String name = editFriendText.getText().toString();
 
         if (name != null) {
@@ -208,7 +217,9 @@ public class UserActivity extends ActionBarActivity {
     }
 
     public void updateFriendData(){
-
+        if (!loggedIn) {
+            return;
+        }
         ParseQuery friendQuery = new ParseQuery("accounts");
         friendQuery.whereEqualTo("username", username);
         friendQuery.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -252,7 +263,9 @@ public class UserActivity extends ActionBarActivity {
     }
 
     public static void updateFavoriteSlopeData() {
-        System.out.println("on resume");
+        if (!loggedIn) {
+            return;
+        }
 
         ParseQuery slopeQuery = new ParseQuery("accounts");
         slopeQuery.whereEqualTo("username", username);
