@@ -58,12 +58,10 @@ public class SlopeActivity extends ActionBarActivity {
 
         // Context is this
         context = this;
-<<<<<<< HEAD
-=======
 
         // Set up the mountain object
         mountainName = getIntent().getExtras().getString("mountain");
->>>>>>> origin/master
+
         mountain = new Mountain(mountainName);
 
         currentUserName = getIntent().getExtras().getString("username");

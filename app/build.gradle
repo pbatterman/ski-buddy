@@ -25,5 +25,6 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.google.android.gms:play-services:6.5.87'
-    compile project(":volley")
+    compile project(':volley')
+    compile 'com.google.android.gms:play-services:6.5.87'
 }

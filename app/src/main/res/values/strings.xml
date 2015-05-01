@@ -40,5 +40,6 @@
     <string name="title_activity_slope_data">SlopeData</string>
     <string name="title_activity_mountain_condition">MountainConditionActivity</string>
     <string name="title_activity_report_trail_conditions">ReportTrailConditions</string>
+    <string name="title_activity_map_view">MapActivity</string>
 
 </resources>
