@@ -32,8 +32,8 @@ public class WaitTimeActivity extends ActionBarActivity {
     Mountain mountain;
     WaitTimeActivity context;
 
-    final ArrayList<String> liftNames = new ArrayList<String>();
-    final ArrayList<String> times = new ArrayList<String>();
+    ArrayList<String> liftNames = new ArrayList<String>();
+    ArrayList<String> times = new ArrayList<String>();
     int selectedItemIndex = 0;
 
     @Override
@@ -49,72 +49,24 @@ public class WaitTimeActivity extends ActionBarActivity {
         tv.setText(mountainName);
 
         mountain = new Mountain(mountainName);
-        lifts = new ArrayList<Lift>();
-
-        ParseQuery pq = new ParseQuery("Mountain");
-        pq.whereEqualTo("name", mountainName);
-        pq.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject object, ParseException e) {
-                JSONArray jsonArr = object.getJSONArray("lifts");
-
-                for (int i = 0; i < jsonArr.length(); i++) {
-                    try {
-                        final String lift = jsonArr.getJSONObject(i).getString("name");
-                        ParseQuery pq = new ParseQuery("Lift");
-                        pq.whereEqualTo("name", lift);
-                        pq.getFirstInBackground(new GetCallback<ParseObject>() {
-                            @Override
-                            public void done(ParseObject object, ParseException e) {
-                                double duration = object.getDouble("duration");
-                                double waitTime = object.getDouble("waitTime");
-                                times.add("" + waitTime);
-                                int capacity = object.getInt("capacity");
-
-                                Lift liftObject = new Lift();
-                                liftObject.setCapacity(capacity);
-                                liftObject.setDuration(duration);
-                                liftObject.setWaitTime(waitTime);
-                                liftObject.setName(lift);
-                                lifts.add(liftObject);
-                                liftNames.add(liftObject.getName());
-                            }
-                        });
-                    } catch (JSONException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                final Spinner liftSpinner = (Spinner) findViewById(R.id.liftSpinner);
-                ArrayAdapter<String> liftSpinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, liftNames); //selected item will look like a spinner set from XML
-                liftSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                liftSpinner.setAdapter(liftSpinnerArrayAdapter);
+        liftNames = getIntent().getExtras().getStringArrayList("lifts");
+        lifts = MainActivity.getLifts();
 
 
-                liftSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view,
-                                               int position, long id) {
-                        selectedItemIndex = liftSpinner.getSelectedItemPosition();
-                    }
+        Spinner liftSpinner = (Spinner) findViewById(R.id.liftSpinner);
+        ArrayAdapter<String> liftSpinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, liftNames); //selected item will look like a spinner set from XML
+        liftSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        liftSpinner.setAdapter(liftSpinnerArrayAdapter);
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                        selectedItemIndex = 0;
-                    }
-                });
+        // get lifts and wait times, put into strings to display in list
+        listView = (ListView) findViewById(R.id.list);
 
-                // get lifts and wait times, put into strings to display in list
-                listView = (ListView) findViewById(R.id.list);
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-                        android.R.layout.simple_list_item_1, android.R.id.text1, startTimes);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
+                android.R.layout.simple_list_item_1, android.R.id.text1, startTimes);
 
 
-                // Assign adapter to ListView
-                listView.setAdapter(adapter);
-
-            }
-        });
+        // Assign adapter to ListView
+        listView.setAdapter(adapter);
 
     }
 
@@ -175,7 +127,7 @@ public class WaitTimeActivity extends ActionBarActivity {
         }
         Spinner mySpinner = (Spinner) findViewById(R.id.liftSpinner);
         int i = mySpinner.getSelectedItemPosition();
-        Lift tmp = lifts.get(0);
+        Lift tmp = lifts.get(i);
         tmp.insertWaitTime(to_add);
         reValidate();
     }

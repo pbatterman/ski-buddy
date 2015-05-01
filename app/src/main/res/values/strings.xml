@@ -39,5 +39,6 @@
     <string name="title_activity_report_trail_conditions">ReportTrailConditions</string>
     <string name="title_activity_user">UserActivity</string>
     <string name="title_activity_map_view">MapActivity</string>
+    <string name="title_activity_load">LoadActivity</string>
 
 </resources>

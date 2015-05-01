@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     String currentUserName;
 
     // List containing the Lift objects
-    ArrayList<Lift> lifts = new ArrayList<Lift>();
+    static ArrayList<Lift> lifts = new ArrayList<Lift>();
 
     // List contatining the names of the lifts
     ArrayList<String> liftNames = new ArrayList<String>();
@@ -44,17 +44,12 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        Parse.initialize(this, "q3TW5WjUYJCEHqn4J2RVb8sscM8ZCIWZNQt7acL1", "umavEy2ekBXFPCfy7CGKQp9h3sOOf9AOClKThJri");
+        ArrayList<String> mountains = getIntent().getExtras().getStringArrayList("mountains");
 
 
         Spinner spinner = (Spinner) findViewById(R.id.mountains_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.mountains_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mountains);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -116,32 +111,34 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         pq.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                JSONArray jsonArr = object.getJSONArray("lifts");
+                if (object != null) {
+                    JSONArray jsonArr = object.getJSONArray("lifts");
 
-                for (int i = 0; i < jsonArr.length(); i++) {
-                    try {
-                        final String lift = jsonArr.getJSONObject(i).getString("name");
-                        ParseQuery pq = new ParseQuery("Lift");
-                        pq.whereEqualTo("name", lift);
-                        pq.getFirstInBackground(new GetCallback<ParseObject>() {
-                            @Override
-                            public void done(ParseObject object, ParseException e) {
-                                double duration = object.getDouble("duration");
-                                double waitTime = object.getDouble("waitTime");
-                                times.add("" + waitTime);
-                                int capacity = object.getInt("capacity");
+                    for (int i = 0; i < jsonArr.length(); i++) {
+                        try {
+                            final String lift = jsonArr.getJSONObject(i).getString("name");
+                            ParseQuery pq = new ParseQuery("Lift");
+                            pq.whereEqualTo("name", lift);
+                            pq.getFirstInBackground(new GetCallback<ParseObject>() {
+                                @Override
+                                public void done(ParseObject object, ParseException e) {
+                                    double duration = object.getDouble("duration");
+                                    double waitTime = object.getDouble("waitTime");
+                                    times.add("" + waitTime);
+                                    int capacity = object.getInt("capacity");
 
-                                Lift liftObject = new Lift();
-                                liftObject.setCapacity(capacity);
-                                liftObject.setDuration(duration);
-                                liftObject.setWaitTime(waitTime);
-                                liftObject.setName(lift);
-                                lifts.add(liftObject);
-                                liftNames.add(liftObject.getName());
-                            }
-                        });
-                    } catch (JSONException e1) {
-                        e1.printStackTrace();
+                                    Lift liftObject = new Lift();
+                                    liftObject.setCapacity(capacity);
+                                    liftObject.setDuration(duration);
+                                    liftObject.setWaitTime(waitTime);
+                                    liftObject.setName(lift);
+                                    lifts.add(liftObject);
+                                    liftNames.add(liftObject.getName());
+                                }
+                            });
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 }
             }
@@ -190,6 +187,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             times[j] = waitTime;
         }
         i.putExtra("liftStrings", times);
+        i.putExtra("lifts", liftNames);
         this.startActivity(i);
     }
 
@@ -219,6 +217,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         currentUserName = LoginActivity.getCurrentUserName();
         i.putExtra("username", currentUserName);
         this.startActivity(i);
+    public static ArrayList<Lift> getLifts() {
+        return lifts;
     }
 
 }
