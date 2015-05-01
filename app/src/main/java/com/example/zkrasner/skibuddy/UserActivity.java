@@ -244,7 +244,9 @@ public class UserActivity extends ActionBarActivity {
             return;
         }
         String name = editFriendText.getText().toString();
-
+        if (name.equals(username)) {
+            return;
+        }
 //        try {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("accounts");
         query.whereEqualTo("username", name);
