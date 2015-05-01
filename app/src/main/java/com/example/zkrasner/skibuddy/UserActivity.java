@@ -145,7 +145,6 @@ public class UserActivity extends ActionBarActivity {
                 @Override
                 public void done(ParseObject object, ParseException e) {
                     JSONArray jsonArr = object.getJSONArray("friends");
-                    System.out.println(jsonArr.toString());
                     if (jsonArr == null) {
                         jsonArr = new JSONArray();
                     }
@@ -267,6 +266,9 @@ public class UserActivity extends ActionBarActivity {
 
         if (name != null && name.length() > 0) {
             boolean contains = false;
+            if (jsonFriends == null) {
+                jsonFriends = new JSONArray();
+            }
             for (int i = 0; i < jsonFriends.length(); i++) {
                 try {
                     if (jsonFriends.getJSONObject(i).getString("name").equalsIgnoreCase(name)) {
