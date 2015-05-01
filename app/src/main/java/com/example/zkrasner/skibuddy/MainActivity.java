@@ -61,7 +61,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
 
-        System.out.println(parent.getItemAtPosition(pos));
         mountainName = (String) parent.getItemAtPosition(pos);
 
 
@@ -106,7 +105,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         });
 
         ParseQuery pq = new ParseQuery("Mountain");
-
+        lifts = new ArrayList<Lift>();
+        liftNames = new ArrayList<String>();
         pq.whereEqualTo("name", mountainName);
         pq.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
