@@ -209,7 +209,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
     public void showMountainConditions(View view) {
-        Intent i = new Intent(this, MapActivity.class);
+        Intent i = new Intent(this, MountainConditionActivity.class);
         i.putExtra("mountain", mountainName);
         this.startActivity(i);
     }
