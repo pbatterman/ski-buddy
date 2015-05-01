@@ -7,6 +7,7 @@
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
     android:id="@+id/fullLayout"
+    android:gravity="center_horizontal"
 
     tools:context="com.example.zkrasner.skibuddy.ConditionDataStore">
 
@@ -22,6 +23,16 @@
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/slopeName"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="8pt"
+        android:id="@+id/difficulty"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/difficulty"
         android:textSize="12pt"
         android:textColor="#FFFFFF"
         android:textAlignment="center"
@@ -37,31 +48,46 @@
         android:fontFamily="sans-serif-condensed"
         android:id="@+id/condition"/>
 
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/condition"
-        android:textColor="#FFFFFF"
-        android:textAlignment="center"
-        android:id="@+id/difficulty"/>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:layout_below="@id/condition"
+        android:gravity="center_horizontal"
+        android:weightSum="2">
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/addToFavorites"
         android:text="Add to favorites"
-        android:layout_below="@id/difficulty"
         android:fontFamily="sans-serif-condensed"
-        android:onClick="addSlopeToFavorites"/>
+        android:onClick="addSlopeToFavorites"
+        android:background="#AAFFCC33"
+        android:textColor="#FFFFFF"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+
+        />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Remove from favorites"
         android:id="@+id/removeFromFavorites"
-        android:layout_below="@+id/addToFavorites"
         android:fontFamily="sans-serif-condensed"
         android:onClick="removeSlopeFromFavorites"
-        android:background="#AAFFFFFF"
- />
+        android:background="#AAFF4C3D"
+        android:textColor="#FFFFFF"
+        android:layout_weight="1"
+
+
+
+        />
+    </LinearLayout>
 
 </RelativeLayout>
