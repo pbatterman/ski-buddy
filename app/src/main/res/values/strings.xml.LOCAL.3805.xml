@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SkiBuddy</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="mountains_array">
+        <item>Killington</item>
+        <item>Pico</item>
+        <item>Jay Peak</item>
+        <item>Stratton</item>
+        <item>Mont Tremblant</item>
+        <item>Okemo</item>
+        <item>Magic</item>
+    </string-array>
+
+    <string-array name="conditions_array">
+        <item>Icy</item>
+        <item>Granular</item>
+        <item>Groomed</item>
+        <item>Packed Powder</item>
+        <item>Powder</item>
+    </string-array>
+
+    <string-array name="kill_runs">
+        <item>Glades</item>
+        <item>Lowell Thomas</item>
+        <item>Cliff Run</item>
+    </string-array>
+
+    <string-array name="lift_array">
+        <item>Fast Lift</item>
+        <item>Slow Bunny Hill</item>
+    </string-array>
+
+    <string name="button_text">View Lift Times</string>
+    <string name="title_activity_wait_time">waitTimeActivity</string>
+    <string name="title_activity_slope">SlopeActivity</string>
+    <string name="title_activity_slope_data">SlopeData</string>
+    <string name="title_activity_mountain_condition">MountainConditionActivity</string>
+    <string name="title_activity_report_trail_conditions">ReportTrailConditions</string>
+    <string name="title_activity_map_view">MapActivity</string>
+
+</resources>
