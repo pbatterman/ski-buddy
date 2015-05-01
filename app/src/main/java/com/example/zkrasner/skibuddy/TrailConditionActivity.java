@@ -1,5 +1,6 @@
 package com.example.zkrasner.skibuddy;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -162,6 +164,13 @@ public class TrailConditionActivity extends ActionBarActivity {
                     System.out.println("arr: " + jsonArr2);
                     object.saveInBackground();
 
+                    Context context = getApplicationContext();
+                    CharSequence text = slopeName + " added to favorite trails";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
@@ -193,6 +202,12 @@ public class TrailConditionActivity extends ActionBarActivity {
                         }
 
                     }
+                    Context context = getApplicationContext();
+                    CharSequence text = slopeName + " removed from favorite trails";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
 //                    slopeArr = newSlopesArr;
                 }
                 object.put("favoriteSlopes", newSlopesArr);

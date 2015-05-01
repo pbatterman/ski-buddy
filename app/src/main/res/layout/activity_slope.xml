@@ -7,9 +7,18 @@
     android:background="#7ABFF0"
     tools:context="com.example.zkrasner.skibuddy.SlopeActivity">
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="10pt"
+        android:fontFamily="sans-serif-condensed"
+        android:id="@+id/slope_mountain_name"/>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/slope_mountain_name"
         android:orientation="vertical"
         android:weightSum="1">
 
@@ -19,6 +28,7 @@
             android:layout_height="300dp"
             android:layout_width="match_parent"
             android:background="#AAFFFFFF"
+            android:fontFamily="sans-serif-condensed"
             android:layout_weight="0.13">
         </ListView>
 
@@ -31,6 +41,7 @@
             android:background="#FFFFFF"
             android:id="@+id/button2"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="sans-serif-condensed"
             android:onClick="reportTimes" />
 
     </LinearLayout>
