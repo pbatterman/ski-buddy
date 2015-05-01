@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="debug"><source path="/Users/zkrasner/Documents/Programming/Android/ski-buddy/volley/build/intermediates/bundles/debug/res"/></dataSet><dataSet config="main"><source path="/Users/zkrasner/Documents/Programming/Android/ski-buddy/volley/src/androidTest/res"/><source path="/Users/zkrasner/Documents/Programming/Android/ski-buddy/volley/build/generated/res/rs/test/debug"/><source path="/Users/zkrasner/Documents/Programming/Android/ski-buddy/volley/build/generated/res/generated/test/debug"/></dataSet><mergedItems/></merger>
+=======
+<merger version="3"><dataSet config="debug"><source path="/Users/pbatterman/GitHub/ski-buddy/volley/build/intermediates/bundles/debug/res"/></dataSet><dataSet config="main"><source path="/Users/pbatterman/GitHub/ski-buddy/volley/src/androidTest/res"/><source path="/Users/pbatterman/GitHub/ski-buddy/volley/build/generated/res/rs/test/debug"/><source path="/Users/pbatterman/GitHub/ski-buddy/volley/build/generated/res/generated/test/debug"/></dataSet><mergedItems/></merger>
+>>>>>>> 5e7074646bd64d8dd88ad9bf4fce819c320b9e6e

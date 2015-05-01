@@ -1,38 +1,93 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
+    android:background="#5D697A"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:id="@+id/fullLayout"
+    android:gravity="center_horizontal"
+
     tools:context="com.example.zkrasner.skibuddy.ConditionDataStore">
 
-    <TextView android:layout_width="wrap_content"
+    <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="20pt"
+        android:textColor="#AAFFFFFF"
+        android:textAllCaps="true"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed"
         android:id="@+id/slopeName"/>
 
-    <TextView android:layout_width="wrap_content"
+    <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/slopeName"
-        android:textSize="48pt"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="8pt"
+        android:id="@+id/difficulty"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/difficulty"
+        android:textSize="12pt"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed"
         android:id="@+id/rating"/>
 
-    <TextView android:layout_width="wrap_content"
+    <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rating"
-        android:textSize="24pt"
+        android:textSize="12pt"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-condensed"
         android:id="@+id/condition"/>
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/condition"
-        android:id="@+id/difficulty"/>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:layout_below="@id/condition"
+        android:gravity="center_horizontal"
+        android:weightSum="2">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/addToFavorites"
         android:text="Add to favorites"
-        android:layout_below="@id/difficulty"
-        android:onClick="addSlopeToFavorites"/>
+        android:fontFamily="sans-serif-condensed"
+        android:onClick="addSlopeToFavorites"
+        android:background="#AAFFCC33"
+        android:textColor="#FFFFFF"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+
+        />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Remove from favorites"
+        android:id="@+id/removeFromFavorites"
+        android:fontFamily="sans-serif-condensed"
+        android:onClick="removeSlopeFromFavorites"
+        android:background="#AAFF4C3D"
+        android:textColor="#FFFFFF"
+        android:layout_weight="1"
+
+
+
+        />
+    </LinearLayout>
 
 </RelativeLayout>

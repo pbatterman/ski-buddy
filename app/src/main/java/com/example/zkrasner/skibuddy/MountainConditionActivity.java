@@ -1,10 +1,12 @@
 package com.example.zkrasner.skibuddy;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -29,6 +31,9 @@ public class MountainConditionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mountain_condition);
         String mountainName = getIntent().getExtras().getString("mountain");
+
+        final RelativeLayout background = (RelativeLayout) findViewById(R.id.conditionBackground);
+
 
         /* AsyncTask<String, Void, ArrayList<String>> task = new RetrieveWeatherData().execute(mountainName);
         ArrayList<String> currentWeather = null;
@@ -78,6 +83,30 @@ public class MountainConditionActivity extends ActionBarActivity {
                                     String temperature = parseText(response, target, end);
                                     TextView tempText = (TextView) findViewById(R.id.temperature_number);
                                     tempText.setText(temperature);
+
+                                    int temp = Integer.parseInt(temperature);
+                                    if (temp < 10) {
+                                        background.setBackgroundColor(Color.parseColor("#5B8CD6"));
+                                    }
+                                    else if (temp < 32) {
+                                        background.setBackgroundColor(Color.parseColor("#73C2FF"));
+                                    }
+                                    else if (temp < 40) {
+                                        background.setBackgroundColor(Color.parseColor("#8FDBFF"));
+                                    }
+                                    else if (temp < 50) {
+                                        background.setBackgroundColor(Color.parseColor("#A3E5FF"));
+                                    }
+                                    else if (temp < 70) {
+                                        background.setBackgroundColor(Color.parseColor("#B7D3D1"));
+                                    }
+                                    else if (temp < 90) {
+                                        background.setBackgroundColor(Color.parseColor("#FFF0A8"));
+                                    }
+                                    else {
+                                        background.setBackgroundColor(Color.parseColor("#FFBF6B"));
+
+                                    }
 
                                 }
                             }, new Response.ErrorListener() {

@@ -88,20 +88,44 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/linearLayout1"
+
+        android:gravity="center_horizontal"
+        android:weightSum="2">
+
     <Button
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="fill_parent"
-        android:text="Sign in / Sign up"
-        android:layout_height="40dp"
+        android:text="Sign In / Sign Up"
+        android:layout_height="fill_parent"
+        android:id="@+id/button3"
+        android:layout_marginRight="10dp"
         android:background="#FF4C3D"
         android:textColor="#FFFFFF"
         android:fontFamily="sans-serif-condensed"
         android:textSize="15dp"
         android:layout_weight="1"
-        android:id="@+id/button3"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_centerHorizontal="true"
         android:onClick="showLogin" />
+
+
+    <Button
+        android:layout_width="fill_parent"
+        android:text="My Profile"
+        android:layout_height="fill_parent"
+        android:id="@+id/button4"
+        android:background="#FF4C3D"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="15dp"
+        android:layout_weight="1"
+        android:onClick="showUserPage"  />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
