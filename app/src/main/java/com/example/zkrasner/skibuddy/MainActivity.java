@@ -29,6 +29,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     String mountainName;
     String currentUserName;
 
+    static ArrayList<Double> out;
+
     // List containing the Lift objects
     static ArrayList<Lift> lifts = new ArrayList<Lift>();
 
@@ -174,19 +176,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     public void showLiftTimes(View view) {
         Intent i = new Intent(this, WaitTimeActivity.class);
+        System.out.println();
         i.putExtra("mountain", mountainName);
-        Mountain mountain = new Mountain(mountainName);
 
-        mountain.addLifts(lifts);
-
-        // get lifts and wait times, put into strings to display in list
-        String[] times = new String[mountain.getLifts().size()];
-        for (int j = 0; j < mountain.getLifts().size(); j++) {
-            Lift lift = mountain.getLifts().get(j);
-            String waitTime = lift.getName() + ": " + lift.getWaitTime();
-            times[j] = waitTime;
-        }
-        i.putExtra("liftStrings", times);
         i.putExtra("lifts", liftNames);
         this.startActivity(i);
     }
@@ -221,6 +213,26 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     public static ArrayList<Lift> getLifts() {
         return lifts;
+    }
+
+    public static ArrayList<Double> getWaitTimes(ArrayList<String> l) {
+
+        out = new ArrayList<Double>();
+        for (String a : l) {
+            ParseQuery pq = new ParseQuery("Lift");
+            pq.whereEqualTo("name", l);
+            pq.getFirstInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, ParseException e) {
+                    if(object != null) {
+                        double waitTime = object.getDouble("waitTime");
+                        out.add(waitTime);
+                    }
+                }
+            });
+        }
+
+        return out;
     }
 
 }

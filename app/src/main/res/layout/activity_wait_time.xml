@@ -29,12 +29,20 @@
             android:id="@+id/numberTextBox" />
 
         <Button
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Refresh"
+            android:id="@+id/refreshButton"
+            android:layout_gravity="right" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="93dp"
             android:text="Submit"
             android:id="@+id/button"
-            android:layout_gravity="center_horizontal"
-            android:onClick="onSubmitButtonSelected" />
+            android:onClick="onSubmitButtonSelected"
+            android:layout_gravity="center_horizontal" />
 
         <ListView
         android:id="@+id/list"
