@@ -128,20 +128,10 @@ public class ReportTrailConditions extends ActionBarActivity {
     public void onSubmitButtonClick(View view){
         Spinner trailSpinner = (Spinner) findViewById(R.id.trail_select_spinner);
         String curr_trail = trailNames.get(selectedItemIndex);
-        System.out.println("trail was " + curr_trail);
 
         Spinner conditionSpinner  = (Spinner) findViewById(R.id.condition_select_spinner);
-        String curr_cond = conditionSpinner.getSelectedItem().toString();
-        System.out.println("curr cond was " + curr_cond);
+        final int curr_cond = conditionSpinner.getSelectedItemPosition();
 
-        int q = -1;
-        for(int i = 0; i < conditions.length; i++){
-            if(conditions[i].equals(curr_cond)){
-                q = i;
-            }
-        }
-
-        final int q_done = q;
 
         NumberPicker np = (NumberPicker) findViewById(R.id.rating_picker);
         final int rating = np.getValue();
@@ -154,9 +144,13 @@ public class ReportTrailConditions extends ActionBarActivity {
         pq.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-
-                object.put("conditionRating", q_done);
-                object.put("rating", rating);
+                System.out.println("HERE");
+                Integer numEntries = (Integer) object.getInt("numEntries");
+                Double oldRating = (Double) object.getDouble("rating");
+                Double newRating = ((oldRating * numEntries) + rating) / (numEntries + 1);
+                object.put("numEntries", numEntries + 1);
+                object.put("conditionRating", curr_cond);
+                object.put("rating", newRating);
                 object.saveInBackground();
 
 

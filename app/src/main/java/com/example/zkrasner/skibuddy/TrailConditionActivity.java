@@ -18,8 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 
-public class ConditionDataStore extends ActionBarActivity {
+
+public class TrailConditionActivity extends ActionBarActivity {
 
     String slopeName;
     String currentUserName;
@@ -38,8 +40,10 @@ public class ConditionDataStore extends ActionBarActivity {
         pq.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                int rating = object.getInt("rating");
-                String ratingString = "Rating: " + rating;
+                Double rating = object.getDouble("rating");
+                DecimalFormat df = new DecimalFormat("#.##");
+                String shortRating = df.format(rating);
+                String ratingString = "Rating: " + shortRating;
                 int difficulty = object.getInt("difficulty");
 
                 // Use integer to find the right String
@@ -62,28 +66,25 @@ public class ConditionDataStore extends ActionBarActivity {
 
                 }
 
-                int conditionRating = object.getInt("condition");
+                int conditionRating = object.getInt("conditionRating");
                 String condition = "";
 
                 // Use integer to find the right String
-                if (conditionRating == 1) {
+                if (conditionRating == 0) {
                     condition = "Icy";
-                } else if (difficulty == 2) {
+                } else if (conditionRating == 1) {
                     condition = "Granular";
-                } else if (difficulty == 3) {
+                } else if (conditionRating == 2) {
                     condition = "Groomed";
-                } else if (difficulty == 4) {
+                } else if (conditionRating == 3) {
                     condition = "Packed Powder";
-                } else if (difficulty == 5) {
+                } else if (conditionRating == 4) {
                     condition = "Powder";
                 }
 
                 Trail t = new Trail(condition, ratingString, difficultyLevel);
                 t.setName(slopeName);
 
-                // Find the running average rating
-                String updatedRating = TrailDataStore.returnRating(slopeName);
-                String updatedCondition = TrailDataStore.returnCondition(slopeName);
 
                 // Set the proper values
                 TextView ratingText = (TextView) findViewById(R.id.rating);

@@ -1,5 +1,6 @@
 package com.example.zkrasner.skibuddy;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -35,6 +37,9 @@ public class UserActivity extends ActionBarActivity {
     private JSONArray jsonFriends;
     private static boolean noFavorites;
     private static boolean loggedIn;
+    private static boolean userExists;
+    private ArrayList<String> friendLocs = new ArrayList<String>();
+    private ArrayList<String> friendsList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +126,7 @@ public class UserActivity extends ActionBarActivity {
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             if (!noFavorites) {
                                 String currentSlope = (String) adapterView.getItemAtPosition(i);
-                                Intent intent = new Intent(context, ConditionDataStore.class);
+                                Intent intent = new Intent(context, TrailConditionActivity.class);
                                 intent.putExtra("slopeName", currentSlope);
                                 intent.putExtra("username", username);
                                 context.startActivity(intent);
@@ -131,6 +136,52 @@ public class UserActivity extends ActionBarActivity {
                 }
             }
         });
+
+        // prep the parse data for the map
+        try {
+            ParseQuery mapfriendQuery = new ParseQuery("accounts");
+            mapfriendQuery.whereEqualTo("username", username);
+            mapfriendQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, ParseException e) {
+                    JSONArray jsonArr = object.getJSONArray("friends");
+                    if (jsonArr == null) {
+                        jsonArr = new JSONArray();
+                    }
+                    for (int i = 0; i < jsonArr.length(); i++) {
+                        try {
+                            final String friend = jsonArr.getJSONObject(i).getString("name");
+                            System.out.println(i + " " + friend);
+                            friendsList.add(friend);
+                            ParseQuery friendLocationQuery = new ParseQuery("accounts");
+                            friendLocationQuery.whereEqualTo("username", friend);
+                            friendLocationQuery.getFirstInBackground(new GetCallback<ParseObject>() {
+                                @Override
+                                public void done(ParseObject object, ParseException e) {
+                                    if (object != null) {
+                                        Double lat = object.getDouble("Lat");
+                                        Double lng = object.getDouble("Lng");
+                                        if (lat == null || lng == null) {
+                                            lat = 0.0;
+                                            lng = 0.0;
+                                        }
+                                        friendLocs.add(friend + ':' + lat + ':' + lng);
+                                    } else {
+                                        friendLocs.add(friend + ':' + 0 + ':' + 0);
+                                    }
+                                    System.out.println("Friendlocs is now size: " + friendLocs.size());
+                                }
+                            });
+                        } catch (JSONException e1) {
+                            System.out.println("failed while getting lat and long");
+                        }
+                    }
+                    System.out.println("Completed populating friendlocs: " + friendLocs.size());
+                }
+            });
+        } catch (Exception e) {
+            System.out.println("failed while getting the friends list");
+        }
     }
 
 
@@ -189,8 +240,35 @@ public class UserActivity extends ActionBarActivity {
         }
         String name = editFriendText.getText().toString();
 
+//        try {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("accounts");
+        query.whereEqualTo("username", name);
+        try {
+            ParseObject object = query.getFirst();
+            userExists = true;
+
+        }
+        // don't find username
+        catch (Exception e) {
+            userExists = false;
+        }
+
+//        System.out.println("found user: " + userExists);
+        if (!userExists) {
+            Context context = getApplicationContext();
+            CharSequence text = "User doesn't exist!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            return;
+        }
+
         if (name != null && name.length() > 0) {
             boolean contains = false;
+            if (jsonFriends == null) {
+                jsonFriends = new JSONArray();
+            }
             for (int i = 0; i < jsonFriends.length(); i++) {
                 try {
                     if (jsonFriends.getJSONObject(i).getString("name").equalsIgnoreCase(name)) {
@@ -209,6 +287,12 @@ public class UserActivity extends ActionBarActivity {
                 } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
+                Context context = getApplicationContext();
+                CharSequence text = "Added friend " + name;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
                 updateFriendData();
             }
 
@@ -251,12 +335,6 @@ public class UserActivity extends ActionBarActivity {
 
                 // Assign adapter to ListView
                 friendListView.setAdapter(adapter);
-//                friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                        currentSlope = (String) adapterView.getItemAtPosition(i);
-//                        showSlopeData(view);
-//                    }
 
             }
         });
@@ -303,7 +381,7 @@ public class UserActivity extends ActionBarActivity {
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             if (!noFavorites) {
                                 String currentSlope = (String) adapterView.getItemAtPosition(i);
-                                Intent intent = new Intent(context, ConditionDataStore.class);
+                                Intent intent = new Intent(context, TrailConditionActivity.class);
                                 intent.putExtra("slopeName", currentSlope);
                                 intent.putExtra("username", username);
                                 context.startActivity(intent);
@@ -313,6 +391,22 @@ public class UserActivity extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    public void showMap(View view) {
+        //TO DO: grab the user's lat and long here to populate the pin
+        //TO DO: parse this user's friends and their locations for the pins
+        System.out.println("about to show map for " + username);
+
+        System.out.println("in show map: " + friendLocs.size());
+        for (String s: friendLocs) {
+            System.out.println("m " + s);
+        }
+
+        Intent i = new Intent(this, MapActivity.class);
+        i.putExtra("username", username);
+        i.putExtra("friendlocations", friendLocs.toArray(new String[friendLocs.size()]));
+        this.startActivity(i);
     }
 
     @Override
