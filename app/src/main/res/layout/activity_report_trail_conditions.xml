@@ -54,9 +54,7 @@
         android:text="Submit Rating"
         android:id="@+id/submit_trail_condition_button"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"
-        android:background="#AAFF4C3D"
+
         android:onClick="onSubmitButtonClick" />
 
     <TextView

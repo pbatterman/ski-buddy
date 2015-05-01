@@ -32,12 +32,13 @@
     </string-array>
 
     <string name="button_text">View Lift Times</string>
-    <string name="title_activity_wait_time">waitTimeActivity</string>
-    <string name="title_activity_slope">SlopeActivity</string>
-    <string name="title_activity_slope_data">SlopeData</string>
-    <string name="title_activity_mountain_condition">MountainConditionActivity</string>
-    <string name="title_activity_report_trail_conditions">ReportTrailConditions</string>
-    <string name="title_activity_user">UserActivity</string>
-    <string name="title_activity_map_view">MapActivity</string>
+    <string name="title_activity_wait_time">Lift Times</string>
+    <string name="title_activity_slope">Trails</string>
+    <string name="title_activity_slope_data">Trail Data</string>
+    <string name="title_activity_mountain_condition">Mountain Conditions</string>
+    <string name="title_activity_report_trail_conditions">Rate Slopes</string>
+    <string name="title_activity_user">Profile</string>
+    <string name="title_activity_map_view">Map</string>
+    <string name="title_activity_load">Loading...</string>
 
 </resources>

@@ -38,7 +38,7 @@ public class ConditionDataStore extends ActionBarActivity {
         pq.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                int rating = object.getInt("rating");
+                double rating = object.getDouble("rating");
                 String ratingString = "Rating: " + rating;
                 int difficulty = object.getInt("difficulty");
 
@@ -62,19 +62,19 @@ public class ConditionDataStore extends ActionBarActivity {
 
                 }
 
-                int conditionRating = object.getInt("condition");
+                int conditionRating = object.getInt("conditionRating");
                 String condition = "";
 
                 // Use integer to find the right String
-                if (conditionRating == 1) {
+                if (conditionRating == 0) {
                     condition = "Icy";
-                } else if (difficulty == 2) {
+                } else if (difficulty == 1) {
                     condition = "Granular";
-                } else if (difficulty == 3) {
+                } else if (difficulty == 2) {
                     condition = "Groomed";
-                } else if (difficulty == 4) {
+                } else if (difficulty == 3) {
                     condition = "Packed Powder";
-                } else if (difficulty == 5) {
+                } else if (difficulty == 4) {
                     condition = "Powder";
                 }
 

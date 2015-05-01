@@ -37,15 +37,12 @@ public class TrailDataStore {
     }
 
     // Inserts rating into running average
-    public static void InsertRating(String a, int condition, int rating){
+    public static void insertRating(String a, int condition, int rating){
         int index = getTrailIndex(a);
         int old_number = observations.get(index);
         observations.set(index,observations.get(index) + 1);
 
-        int old_condition = average_condition.get(index);
-        float new_condition = ((old_number * old_condition) + (condition)) / (old_number+1);
-        int final_condition = Math.round(new_condition);
-        average_condition.set(index,final_condition);
+        average_condition.set(index, condition);
 
 
         int old_rating = average_rating.get(index);
