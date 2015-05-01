@@ -41,6 +41,7 @@ public class WaitTimeActivity extends ActionBarActivity {
     String[] out;
     int count;
     ArrayList<String> toFill;
+    ArrayList<Integer> toFillHelper;
     int selectedItemIndex = 0;
 
     @Override
@@ -77,6 +78,7 @@ public class WaitTimeActivity extends ActionBarActivity {
 
 
         toFill = new ArrayList<String>();
+        toFillHelper = new ArrayList<Integer>();
         final int last = liftNames.size() - 1;
         count = 0;
         for(String l : liftNames) {
@@ -89,8 +91,50 @@ public class WaitTimeActivity extends ActionBarActivity {
                     if (e == null) {
                         final String a = ( (String) (object.get("name") + ": " + object.get("waitTime")));
                         toFill.add(a);
+                        toFillHelper.add((Integer)object.get("waitTime"));
+
+                        System.out.println(toFill.size() + " " + toFillHelper.size());
 
                         if(count ==  last){
+
+                            // sort by wait times
+
+                            for(int i = 0; i < toFill.size() - 1; i++) {
+
+                                double smallest = toFillHelper.get(i);
+                                int index = i;
+
+                                for (int j = i+1; j < toFill.size(); j++) {
+                                    System.out.println(i + ", " + j);
+                                    if(toFillHelper.get(j) < smallest){
+                                        index = j;
+                                        smallest = toFillHelper.get(j);
+                                    }
+
+
+                                }
+
+                                if(index != i){
+                                    // swap i and index
+                                    String tmp = toFill.get(i);
+
+                                    toFill.set(i,toFill.get(index));
+                                    toFill.set(index,tmp);
+
+                                    int curr = toFillHelper.get(i);
+
+                                    toFillHelper.set(i,toFillHelper.get(index));
+                                    toFillHelper.set(index,curr);
+
+
+                                }
+
+
+                            }
+
+
+
+
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(contextview,
                                     R.layout.listviewlayout, toFill);
                             ListView lv = (ListView) findViewById(R.id.list);
