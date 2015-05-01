@@ -95,16 +95,16 @@ public class MountainConditionActivity extends ActionBarActivity {
                                         background.setBackgroundColor(Color.parseColor("#8FDBFF"));
                                     }
                                     else if (temp < 50) {
-                                        background.setBackgroundColor(Color.parseColor("#A3E5FF"));
+                                        background.setBackgroundColor(Color.parseColor("#8DCCE3"));
                                     }
                                     else if (temp < 70) {
-                                        background.setBackgroundColor(Color.parseColor("#B7D3D1"));
+                                        background.setBackgroundColor(Color.parseColor("#A7CCB6"));
                                     }
                                     else if (temp < 90) {
                                         background.setBackgroundColor(Color.parseColor("#FFF0A8"));
                                     }
                                     else {
-                                        background.setBackgroundColor(Color.parseColor("#FFBF6B"));
+                                        background.setBackgroundColor(Color.parseColor("#FFB55E"));
 
                                     }
 
