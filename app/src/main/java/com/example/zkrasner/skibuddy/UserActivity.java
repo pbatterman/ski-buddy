@@ -247,7 +247,6 @@ public class UserActivity extends ActionBarActivity {
         if (name.equals(username)) {
             return;
         }
-//        try {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("accounts");
         query.whereEqualTo("username", name);
         try {
