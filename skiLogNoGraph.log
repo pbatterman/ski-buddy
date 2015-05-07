@@ -1,0 +1,119 @@
+9bee603 - Paul Batterman, 10 minutes ago : unique usernames only
+b9a1288 - Paul Batterman, 20 minutes ago : no blank username
+dc514f1 - Paul Batterman, 41 minutes ago : remove commented out code
+e2326a2 - Paul Batterman, 44 minutes ago : can't add yourself as a friend
+2a3afe0 - Zach Krasner, 46 minutes ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+32b0edd - Zach Krasner, 46 minutes ago : pushing working map activity functionality
+3520ae4 - Paul Batterman, 48 minutes ago : change message for no login
+2f0370a - Lucas Tai-MacArthur, 8 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+ce5d758 - Lucas Tai-MacArthur, 8 hours ago : fix overflow bug, rename app
+7938613 - Scott Freeman, 8 hours ago : Commenting
+dcec9bd - Scott Freeman, 8 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+6b7cedb - Scott Freeman, 8 hours ago : Changes in Wait Time
+a5c633c - Paul Batterman, 8 hours ago : remove user and waitTimeAverage classes
+65493b7 - Paul Batterman, 9 hours ago : add toasts
+2a5f774 - Paul Batterman, 9 hours ago : More UI updates
+d3d8209 - Paul Batterman, 9 hours ago : UI updates
+a71c773 - Paul Batterman, 9 hours ago : UI stuff
+5c951be - Scott Freeman, 10 hours ago : Averaging wait times
+e1b4594 - Lucas Tai-MacArthur, 10 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+95b2159 - Lucas Tai-MacArthur, 10 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+572771e - Scott Freeman, 10 hours ago : deleting unused files
+f09df25 - Lucas Tai-MacArthur, 10 hours ago : lift times now sorted.
+45f1497 - Lucas Tai-MacArthur, 10 hours ago : stop it from breaking
+ca670a6 - Lucas Tai-MacArthur, 10 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+fed30ff - Lucas Tai-MacArthur, 10 hours ago : wait times working with server, not sorted
+c2d8211 - Paul Batterman, 10 hours ago : UI changes
+8b77fe1 - Paul Batterman, 11 hours ago : fix silly bug in condition
+3bc0afc - Paul Batterman, 11 hours ago : fix adding friend null problems
+5184cdc - Scott Freeman, 11 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+6744d05 - Scott Freeman, 11 hours ago : Cleaning up code
+b16292a - Zach Krasner, 12 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+296ecd6 - Zach Krasner, 12 hours ago : functional mapping and mapping accessories
+17d9f92 - Scott Freeman, 12 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+b2e3b3a - Scott Freeman, 12 hours ago : Java version
+50886b8 - Scott Freeman, 12 hours ago : Averaging trail ratings on Parse
+0e40b5d - Paul Batterman, 13 hours ago : unique usernames and friend adding
+42b8179 - Scott Freeman, 14 hours ago : MainActivity changes
+a02a4f1 - Scott Freeman, 14 hours ago : update spinner, getting parse data
+05d9dcf - Paul Batterman, 14 hours ago : clean up user UI, delete this remote and local stuff
+aa6b3a6 - Paul Batterman, 14 hours ago : fix button crash in user
+40d4614 - Zach Krasner, 15 hours ago : syncing the progress with maps so far
+486d516 - Zach Krasner, 15 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+13ffa97 - Zach Krasner, 15 hours ago : map setup
+5e70746 - Paul Batterman, 15 hours ago : more UI stuff
+2105c16 - Paul Batterman, 15 hours ago : more gui updates to weather
+8391b60 - Paul Batterman, 16 hours ago : UI updates to slope condition
+35c1179 - Paul Batterman, 16 hours ago : complete favorite trails point, color change background
+217c55b - Paul Batterman, 17 hours ago : display favorite trails, can add
+94b7165 - Paul Batterman, 17 hours ago : remove print statements
+3868193 - Paul Batterman, 17 hours ago : create user activity, can add/remove friends
+9d1d4e5 - Zach Krasner, 20 hours ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+9fbc756 - Zach Krasner, 20 hours ago : take 2
+9cbaa4d - Paul Batterman, 20 hours ago : Merge remote-tracking branch 'origin/master'
+fab55da - Paul Batterman, 21 hours ago : save favorites
+0ba1d31 - Scott Freeman, 22 hours ago : Cleaning up code
+ac5cf9c - Scott Freeman, 22 hours ago : Fixing issue with project files not showing
+ca43441 - Scott Freeman, 23 hours ago : Parsing XML
+d5364a5 - Paul Batterman, 23 hours ago : try this class thing, hold onto your hats
+2e46a3e - Paul Batterman, 23 hours ago : pass username to slope activity
+a0cc25f - Lucas Tai-MacArthur, 23 hours ago : synch
+4ec5f5f - Scott Freeman, 24 hours ago : Volley working
+1ef93c3 - Scott Freeman, 24 hours ago : Volley Gradle
+252a79c - Scott Freeman, 24 hours ago : Volley works
+d842682 - Paul Batterman, 24 hours ago : add volley to project
+601377f - Paul Batterman, 2 days ago : add volley and clean up ui
+771c46f - Paul Batterman, 7 days ago : add user class
+59b3a7b - Scott Freeman, 7 days ago : Weather updates
+42ef23d - Paul Batterman, 7 days ago : push krasners thing
+bcfb6c9 - Paul Batterman, 11 days ago : add some comments
+0b54b83 - Lucas Tai-MacArthur, 11 days ago : push
+2c73b64 - Lucas Tai-MacArthur, 11 days ago : Updated WaitTimeActivity
+11cfc4e - Scott Freeman, 11 days ago : Comments
+87b0a15 - Paul Batterman, 11 days ago : try to fix spinner layout in wait time
+3f00176 - Scott Freeman, 11 days ago : Taking out print statements
+5881439 - Scott Freeman, 11 days ago : Fixing variable names
+197d775 - Scott Freeman, 11 days ago : got lifts to show up in Spinner
+8aa9e80 - Scott Freeman, 2 weeks ago : Removed comment
+c84943b - Scott Freeman, 2 weeks ago : Merge remote-tracking branch 'origin/master'
+3975a19 - Scott Freeman, 2 weeks ago : Java version
+c2662cd - Scott Freeman, 2 weeks ago : Reading data from Parse
+135c8cc - Paul Batterman, 2 weeks ago : add login button
+570390c - Lucas Tai-MacArthur, 2 weeks ago : account creation and management
+edb1cf7 - Paul Batterman, 2 weeks ago : clean up code naming, remove back buttons
+a1e3fc3 - Paul Batterman, 3 weeks ago : View all maps on home screen
+916cfd4 - Paul Batterman, 3 weeks ago : Display trail map on home screen
+45a3152 - Zach Krasner, 3 weeks ago : Merge branch 'master' of https://github.com/pbatterman/ski-buddy
+e88d498 - Zach Krasner, 3 weeks ago : syncing
+8efe468 - Lucas Tai-MacArthur, 3 weeks ago : Re-Commitment
+73048cf - Paul Batterman, 3 weeks ago : add parse capability to main
+e77ea1f - Zach Krasner, 3 weeks ago : making all the map files the same status
+61d03b7 - Lucas Tai-MacArthur, 3 weeks ago : Shows Trail ratings
+f3cfe01 - Zach Krasner, 3 weeks ago : changed file names
+9a21867 - Zach Krasner, 3 weeks ago : Added map images
+b5e341a - Lucas Tai-MacArthur, 3 weeks ago : Added Data Class, Rating Trails
+4d4a72d - Paul Batterman, 3 weeks ago : add parse SDK to libraries
+9847540 - Scott Freeman, 4 weeks ago : Added new label to show mountain name
+e3d49ef - Scott Freeman, 4 weeks ago : Formatted Temp Displaying
+f1317f2 - Scott Freeman, 4 weeks ago : Displaying temp
+e90863d - Paul Batterman, 4 weeks ago : Merge remote-tracking branch 'origin/Lucas'_branch_to_break'
+2651014 - Paul Batterman, 4 weeks ago : add text for temp and degree type into condition xml
+fbade03 - Lucas Tai-MacArthur, 4 weeks ago : arbitrary input, select your slope
+e503f0a - Paul Batterman, 4 weeks ago : add mountain name and other labels to conditions xml
+b614c57 - Paul Batterman, 4 weeks ago : change colors and fonts
+6869c9c - Scott Freeman, 4 weeks ago : Got weather to display on its own page
+2f4494c - Paul Batterman, 4 weeks ago : fix leftovers from merge in main xml
+ff5fc4c - Paul Batterman, 4 weeks ago : merge with scott's branch round 2
+6fe5f54 - Paul Batterman, 4 weeks ago : Changes to main xml
+44b941f - Scott Freeman, 4 weeks ago : added weather class
+7d903ae - Paul Batterman, 4 weeks ago : Merge branch 'scott's-branch'
+b8e392e - Scott Freeman, 4 weeks ago : weather displaying
+4aa8825 - Scott Freeman, 4 weeks ago : Added Weather API
+6446e4f - Paul Batterman, 4 weeks ago : change colors, add mountain condition button
+1588989 - Paul Batterman, 4 weeks ago : update main activity xml
+5d21cb6 - Lucas Tai-MacArthur, 4 weeks ago : First try to integrate weighted average into lifts
+97951cf - Lucas Tai-MacArthur, 4 weeks ago : Finished Math
+474b001 - Lucas Tai-MacArthur, 4 weeks ago : I made a thing
+b942668 - Paul Batterman, 4 weeks ago : android studio changes directory names
+68a1165 - Paul Batterman, 4 weeks ago : Add all current project files to repo
+5e377f9 - pbatterman, 4 weeks ago : Initial commit
