@@ -66,7 +66,6 @@ public class ReportTrailConditions extends ActionBarActivity {
                 trailNamesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 // Apply the adapter to the spinner
 
-                System.out.println("trailnames had size " + trailNames);
                 trailSelectedSpinner.setAdapter(trailNamesAdapter);
                 trailSelectedSpinner.setSelection(0);
 
@@ -144,7 +143,6 @@ public class ReportTrailConditions extends ActionBarActivity {
         pq.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                System.out.println("HERE");
                 Integer numEntries = (Integer) object.getInt("numEntries");
                 Double oldRating = (Double) object.getDouble("rating");
                 Double newRating = ((oldRating * numEntries) + rating) / (numEntries + 1);

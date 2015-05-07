@@ -133,7 +133,6 @@ public class TrailConditionActivity extends ActionBarActivity {
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
-                    System.out.println("null object");
                     return;
                 }
 
@@ -161,7 +160,6 @@ public class TrailConditionActivity extends ActionBarActivity {
                     newTrail.put("name", slopeName);
                     jsonArr2.put(newTrail);
                     object.put("favoriteSlopes", jsonArr2);
-                    System.out.println("arr: " + jsonArr2);
                     object.saveInBackground();
 
                     Context context = getApplicationContext();
@@ -178,14 +176,12 @@ public class TrailConditionActivity extends ActionBarActivity {
         });
     }
     public void removeSlopeFromFavorites(View view) {
-        System.out.println("remove from favorites : " + slopeName);
         ParseQuery favoriteQuery = new ParseQuery("accounts");
         favoriteQuery.whereEqualTo("username", currentUserName);
         favoriteQuery.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
-                    System.out.println("null object");
                     return;
                 }
                 JSONArray slopeArr = object.getJSONArray("favoriteSlopes");

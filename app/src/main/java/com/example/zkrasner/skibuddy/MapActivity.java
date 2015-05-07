@@ -29,11 +29,6 @@ public class MapActivity extends Activity implements LocationListener{
         setContentView(R.layout.activity_map_view);
         String[] friends = getIntent().getExtras().getStringArray("friendlocations");
         username = getIntent().getExtras().getString("username");
-        if (friends != null) {
-            System.out.println(friends.length);
-        } else {
-            System.out.println(0 + " something fucked up");
-        }
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         // Creating a criteria object to retrieve provider
@@ -58,7 +53,6 @@ public class MapActivity extends Activity implements LocationListener{
             googleMap.setMyLocationEnabled(true);
 
             for (String s: friends) {
-                System.out.println(s);
                 String[] split = s.split(":");
                 String name = split[0];
                 double lat = Double.parseDouble(split[1]);
@@ -86,8 +80,6 @@ public class MapActivity extends Activity implements LocationListener{
         // Getting longitude of the current location
         final double longitude = location.getLongitude();
 
-        System.out.println(latitude + " " + longitude);
-
         ParseQuery friendQuery = new ParseQuery("accounts");
         friendQuery.whereEqualTo("username", username);
         friendQuery.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -95,7 +87,6 @@ public class MapActivity extends Activity implements LocationListener{
                                              public void done(ParseObject object, ParseException e) {
                                                  object.put("Lat", latitude);
                                                  object.put("Lng", longitude);
-                                                 System.out.println("Updating location");
                                                  object.saveInBackground();
                                              }
                                          });

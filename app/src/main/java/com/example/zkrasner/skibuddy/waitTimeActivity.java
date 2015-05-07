@@ -37,7 +37,6 @@ public class WaitTimeActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         contextView = getApplicationContext();
-        System.out.println("was created");
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wait_time);
@@ -72,7 +71,6 @@ public class WaitTimeActivity extends ActionBarActivity {
         final int last = liftNames.size() - 1;
         count = 0;
         for(String l : liftNames) {
-            System.out.println(l);
             ParseQuery pq = new ParseQuery("Lift");
             pq.whereEqualTo("name", l);
             pq.getFirstInBackground(new GetCallback<ParseObject>() {
@@ -86,8 +84,6 @@ public class WaitTimeActivity extends ActionBarActivity {
                         toFill.add(a);
                         toFillHelper.add(object.getDouble("waitTime"));
 
-                        System.out.println(toFill.size() + " " + toFillHelper.size());
-
                         if(count ==  last){
 
                             // sort by wait times
@@ -98,7 +94,6 @@ public class WaitTimeActivity extends ActionBarActivity {
                                 int index = i;
 
                                 for (int j = i+1; j < toFill.size(); j++) {
-                                    System.out.println(i + ", " + j);
                                     if(toFillHelper.get(j) < smallest){
                                         index = j;
                                         smallest = toFillHelper.get(j);
@@ -132,7 +127,6 @@ public class WaitTimeActivity extends ActionBarActivity {
                                     R.layout.listviewlayout, toFill);
                             ListView lv = (ListView) findViewById(R.id.list);
                             lv.setAdapter(adapter);
-                            System.out.println(toFill.toString());
 
                         }
                         count++;
@@ -199,7 +193,6 @@ public class WaitTimeActivity extends ActionBarActivity {
         final int add = to_add;
 
         // search for the lift in parse
-
         ParseQuery pq = new ParseQuery("Lift");
         pq.whereEqualTo("name", search);
         pq.getFirstInBackground(new GetCallback<ParseObject>() {

@@ -156,7 +156,6 @@ public class UserActivity extends ActionBarActivity {
                     for (int i = 0; i < jsonArr.length(); i++) {
                         try {
                             final String friend = jsonArr.getJSONObject(i).getString("name");
-                            System.out.println(i + " " + friend);
                             friendsList.add(friend);
                             ParseQuery friendLocationQuery = new ParseQuery("accounts");
                             friendLocationQuery.whereEqualTo("username", friend);
@@ -174,18 +173,14 @@ public class UserActivity extends ActionBarActivity {
                                     } else {
                                         friendLocs.add(friend + ':' + 0 + ':' + 0);
                                     }
-                                    System.out.println("Friendlocs is now size: " + friendLocs.size());
                                 }
                             });
                         } catch (JSONException e1) {
-                            System.out.println("failed while getting lat and long");
                         }
                     }
-                    System.out.println("Completed populating friendlocs: " + friendLocs.size());
                 }
             });
         } catch (Exception e) {
-            System.out.println("failed while getting the friends list");
         }
     }
 
@@ -259,7 +254,6 @@ public class UserActivity extends ActionBarActivity {
             userExists = false;
         }
 
-//        System.out.println("found user: " + userExists);
         if (!userExists) {
             Context context = getApplicationContext();
             CharSequence text = "User doesn't exist!";
@@ -371,7 +365,6 @@ public class UserActivity extends ActionBarActivity {
                 }
                 noFavorites = false;
                 if (slopeArr.length == 0) {
-                    System.out.println("no favorites");
                     noFavorites = true;
                     slopeArr = new String[1];
                     slopeArr[0] = "No favorite slopes";
@@ -402,15 +395,6 @@ public class UserActivity extends ActionBarActivity {
     public void showMap(View view) {
         if (!loggedIn) {
             return;
-        }
-
-        //TO DO: grab the user's lat and long here to populate the pin
-        //TO DO: parse this user's friends and their locations for the pins
-        System.out.println("about to show map for " + username);
-
-        System.out.println("in show map: " + friendLocs.size());
-        for (String s: friendLocs) {
-            System.out.println("m " + s);
         }
 
         Intent i = new Intent(this, MapActivity.class);

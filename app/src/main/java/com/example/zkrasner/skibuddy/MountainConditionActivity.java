@@ -34,17 +34,6 @@ public class MountainConditionActivity extends ActionBarActivity {
 
         final RelativeLayout background = (RelativeLayout) findViewById(R.id.conditionBackground);
 
-
-        /* AsyncTask<String, Void, ArrayList<String>> task = new RetrieveWeatherData().execute(mountainName);
-        ArrayList<String> currentWeather = null;
-        try {
-            currentWeather = task.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }*/
-
         TextView mountainText = (TextView) findViewById(R.id.mountain_name);
         mountainText.setText(mountainName);
         TextView tempText = (TextView) findViewById(R.id.temperature_number);
@@ -112,7 +101,6 @@ public class MountainConditionActivity extends ActionBarActivity {
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            System.out.println("That didn'trails work!");
                         }
                     });
                     // Add the request to the RequestQueue.

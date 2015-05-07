@@ -67,12 +67,6 @@ public class SlopeActivity extends ActionBarActivity {
         mountainLabel.setText(mountainName);
 
         currentUserName = getIntent().getExtras().getString("username");
-        if (currentUserName != null) {
-            System.out.println("CURRENT USERNAME: " + currentUserName);
-        }
-        else {
-            System.out.println("null username");
-        }
 
         listView = (ListView) findViewById(R.id.list);
 

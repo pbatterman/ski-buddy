@@ -83,7 +83,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                     final ParseImageView imageView = (ParseImageView) findViewById(R.id.mountain_image);
                     final ParseFile imageFile = object.getParseFile("trailmap");
                     String fname = imageFile.getName();
-                    System.out.println("filename: " + fname);
                     imageFile.getDataInBackground(new GetDataCallback() {
                         public void done(byte[] data, ParseException e) {
                             if (e == null) {
@@ -176,7 +175,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     public void showLiftTimes(View view) {
         Intent i = new Intent(this, WaitTimeActivity.class);
-        System.out.println();
         i.putExtra("mountain", mountainName);
 
         i.putExtra("lifts", liftNames);
